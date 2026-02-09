@@ -1,7 +1,7 @@
-all: katamino clean
+all: katamino clean win
 
 katamino: forme.o tableau.o main.o
-	g++ $^ -o $@ /home/PSYAMEN/PeiP2/InfoS4/server-tests/ServerSide/lib/linux/libraylib.a 
+	g++ $^ -o $@ /home/PSYAMEN/PeiP2/InfoS4/server-tests/ServerSide/lib/linux/libraylib.a --static
 
 main.o: main.cpp forme.h tableau.h
 	g++ -c main.cpp -Wall -O2 -static-libgcc -static-libstdc++
@@ -17,9 +17,6 @@ win:
 	make -f MakeFileWin
 
 clean:
-	rm -f *.o
-
-cleanwin:
 	rm -f *.o
 
 clear:

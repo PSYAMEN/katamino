@@ -1,13 +1,16 @@
-all : katamino.exe
+all : katamino.exe clean
 
-katamino.exe: file.o tableau.o
+katamino.exe: main.o forme.o tableau.o
 	x86_64-w64-mingw32-g++ $^ -o $@ /home/PSYAMEN/PeiP2/InfoS4/server-tests/ServerSide/lib/win/libraylib.a -lgdi32 -lwinmm -lws2_32 -mwindows -static
 
-main.o: main.cpp file.h tableau.h
+main.o: main.cpp forme.h tableau.h
 	x86_64-w64-mingw32-g++ -c main.cpp -Wall -O2 -static-libgcc -static-libstdc++
 
-tableau.o: tableau.h tableau.cpp file.h
+tableau.o: tableau.h tableau.cpp forme.h
 	x86_64-w64-mingw32-g++ -c tableau.cpp -Wall -O2 -static-libgcc -static-libstdc++
 
-file.o: file.cpp file.h
-	x86_64-w64-mingw32-g++ -c file.cpp -Wall -O2 -static-libgcc -static-libstdc++
+forme.o: forme.cpp forme.h
+	x86_64-w64-mingw32-g++ -c forme.cpp -Wall -O2 -static-libgcc -static-libstdc++
+
+clean:
+	rm -f *.o

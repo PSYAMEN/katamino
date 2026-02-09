@@ -1,6 +1,5 @@
 #include "forme.h"
 #include "include/raylib.h"
-#include <raylib.h>
 
 Shape::Shape(){
     shape=new Cell[5];

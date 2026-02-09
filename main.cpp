@@ -18,5 +18,4 @@ int main(){
         }
         EndDrawing();
     }
-    for (int i=0;i<12;i++){delete shapes[i];}
 }
