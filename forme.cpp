@@ -405,7 +405,7 @@ W::W(){
         shape[i].opti=false;
         shape[i].take=true;
     }
-    shape[0].posX=-1;
+    shape[0].posX=-2;
     shape[1].posX=-1;
     shape[2].posX=-1;
     shape[3].posX=0;
