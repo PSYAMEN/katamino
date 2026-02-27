@@ -22,41 +22,108 @@ public:
     virtual void move();
 };
 
-class U: public Shape{//done
-public:
+//X X
+//XXX
+class U: public Shape{//done    
+public:                        
     U();
     ~U();
     void move() override;
 };
 
-class P: public Shape{
+//XXX
+//XX
+class P: public Shape{//fini
 public:
     P();
     ~P();
     void move() override;
 };
 
-class I: public Shape{
+//XXXXX
+class I: public Shape{//fini
 public:
     I();
     ~I();
     void move() override;
 };
 
-class L: public Shape{
+//XXXX
+//X
+class L: public Shape{//fini
 public:
     L();
     void move() override;
 };
 
-class T: public Shape{
+//XXX
+// X
+// X
+class T: public Shape{//fini
 public:
     T();
     void move() override;
 };
 
-class V: public Shape{
+//X
+//X
+//XXX
+class V: public Shape{//fini
 public:
     V();
+    void move() override;
+};
+
+
+//X
+//XX
+// XX
+class W: public Shape{//a fair
+public:
+    W();
+    void move() override;
+};
+
+// X
+//XXX
+// X
+class X: public Shape{//a fair
+public:
+    X();
+    void move() override;
+};
+
+//XX
+// XX
+// X
+class F: public Shape{//a fair
+public:
+    F();
+    void move() override;
+}; 
+
+//XX
+// X
+// XX
+class Z: public Shape{//a fair
+public:
+    Z();
+    void move() override;
+};
+
+
+//XXXX
+// X
+class Y: public Shape{//a fair
+public:
+    Y();
+    void move() override;
+};
+
+//XX
+// XXX
+class N: public Shape{//a fair
+public:
+    N();
     void move() override;
 };
