@@ -10,11 +10,13 @@ int main(){
     shapes[3]=new L;
     shapes[4]=new T;
     shapes[5]=new V;
+    shapes[6]=new W;
+    shapes[7]=new X;
     SetTargetFPS(60);
     while(!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        for (int i=0;i<6;i++){
+        for (int i=0;i<8;i++){
             shapes[i]->rotate();
             shapes[i]->render();
             shapes[i]->move();

@@ -1,7 +1,7 @@
 all : katamino.exe clean
 
 katamino.exe: main.o forme.o tableau.o
-	x86_64-w64-mingw32-g++ $^ -o $@ /home/PSYAMEN/PeiP2/InfoS4/server-tests/ServerSide/lib/win/libraylib.a -lgdi32 -lwinmm -lws2_32 -mwindows -static
+	x86_64-w64-mingw32-g++ $^ -o $@ /home/PSYAMEN/PeiP2/InfoS4/POTE/lib/win/libraylib.a -lgdi32 -lwinmm -lws2_32 -mwindows -static
 
 main.o: main.cpp forme.h tableau.h
 	x86_64-w64-mingw32-g++ -c main.cpp -Wall -O2 -static-libgcc -static-libstdc++
