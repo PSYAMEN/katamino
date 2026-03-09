@@ -255,16 +255,12 @@ L::L(){
         shape[i].opti=false;
         shape[i].take=true;
     }
-    shape[0].posX=0;
-    shape[1].posX=0;
-    shape[2].posX=0;
-    shape[3].posX=0;
-    shape[4].posX=1;
-    shape[0].posY=-1;
-    shape[1].posY=0;
-    shape[2].posY=1;
-    shape[3].posY=2;
-    shape[4].posY=2;
+    shape[0].posX=0;    shape[0].posY=-1;
+    shape[1].posX=0;    shape[1].posY=0;
+    shape[2].posX=0;    shape[2].posY=1;
+    shape[3].posX=0;    shape[3].posY=2;
+    shape[4].posX=1;    shape[4].posY=2;
+
     rotateState=0;
     x=300;
     y=100;
@@ -458,16 +454,11 @@ X::X(){
         shape[i].opti=false;
         shape[i].take=true;
     }
-    shape[0].posX=0;
-    shape[1].posX=-1;
-    shape[2].posX=1;
-    shape[3].posX=0;
-    shape[4].posX=0;
-    shape[0].posY=0;
-    shape[1].posY=0;
-    shape[2].posY=0;
-    shape[3].posY=1;
-    shape[4].posY=-1;
+    shape[0].posX=0;    shape[0].posY=0;
+    shape[1].posX=-1;   shape[1].posY=0;
+    shape[2].posX=1;    shape[2].posY=0;
+    shape[3].posX=0;    shape[3].posY=1;
+    shape[4].posX=0;    shape[4].posY=-1;
     rotateState=0;
     x=600;
     y=100;
