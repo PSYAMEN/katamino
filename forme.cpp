@@ -33,24 +33,14 @@ void Shape::render(){
 }
 
 void Shape::rotate(){
-    if(!IsKeyPressed(KEY_ENTER)) return;
     int save;
-    bool mouse=false;
     for (int i=0;i<5;i++){
-        if ((GetMouseX()>=shape[i].posX*cubeSize+x && GetMouseX()<shape[i].posX*cubeSize+cubeSize+x) && (GetMouseY()>=shape[i].posY*cubeSize+y && GetMouseY()<shape[i].posY*cubeSize+cubeSize+y)) mouse=true; 
-        //std::cout<<"Shape "<<i<<" X:"<<shape[i].posX*cubeSize+x<<"  Shape "<<i<<" Y: "<<shape[i].posY*cubeSize+y<<std::endl;
+        save=shape[i].posX;
+        shape[i].posX=-shape[i].posY;
+        shape[i].posY=save;
+        std::cout<<"posX: "<<shape[i].posX<<"  posY: "<<shape[i].posY<<std::endl;
     }
-    std::cout<<"mouseX: "<<GetMouseX()<<"   mouseY: "<<GetMouseY()<<std::endl;
-    
-    if (mouse){
-        for (int i=0;i<5;i++){
-            save=shape[i].posX;
-            shape[i].posX=-shape[i].posY;
-            shape[i].posY=save;
-            std::cout<<"posX: "<<shape[i].posX<<"  posY: "<<shape[i].posY<<std::endl;
-        }
-        rotateState=(rotateState+1)%4;
-    }
+    rotateState=(rotateState+1)%4;
 }
 
 void Shape::move(){
@@ -167,8 +157,8 @@ P::P(){
     shape[3].posY=-1;
     shape[4].posY=0;
     rotateState=0;
-    x=700;
-    y=100;
+    x=100;
+    y=400;
 }
 
 void P::move(){
@@ -263,8 +253,8 @@ L::L(){
     shape[4].posX=1;    shape[4].posY=2;
 
     rotateState=0;
-    x=300;
-    y=100;
+    x=100;
+    y=200;
 }
 
 void L::move(){
@@ -313,8 +303,8 @@ T::T(){
     shape[3].posY=0;
     shape[4].posY=0;
     rotateState=0;
-    x=400;
-    y=100;
+    x=200;
+    y=220;
 }
 
 void T::move(){
@@ -363,8 +353,8 @@ V::V(){
     shape[3].posY=1;
     shape[4].posY=1;
     rotateState=0;
-    x=500;
-    y=100;
+    x=100;
+    y=300;
 }
 
 void V::move(){
@@ -413,8 +403,8 @@ W::W(){
     shape[3].posY=1;
     shape[4].posY=-1;
     rotateState=0;
-    x=800;
-    y=100;
+    x=200;
+    y=400;
 }
 
 void W::move(){
@@ -461,8 +451,8 @@ X::X(){
     shape[3].posX=0;    shape[3].posY=1;
     shape[4].posX=0;    shape[4].posY=-1;
     rotateState=0;
-    x=600;
-    y=100;
+    x=200;
+    y=300;
 };
 
 
@@ -511,8 +501,8 @@ F::F(){
     shape[3].posX=0;    shape[3].posY=-1;
     shape[4].posX=-1;    shape[4].posY=-1;
     rotateState=0;
-    x=900;
-    y=100;
+    x=100;
+    y=500;
 };
 
 void F::move(){
@@ -561,8 +551,8 @@ Z::Z(){
     shape[3].posX=0;    shape[3].posY=-1;
     shape[4].posX=-1;    shape[4].posY=-1;
     rotateState=0;
-    x=100;
-    y=200;
+    x=200;
+    y=500;
 };
 
 void Z::move(){
@@ -610,8 +600,8 @@ Y::Y(){
     shape[3].posX=2;    shape[3].posY=0;
     shape[4].posX=0;    shape[4].posY=1;
     rotateState=0;
-    x=200;
-    y=200;
+    x=100;
+    y=600;
 };
 
 void Y::move(){
@@ -659,8 +649,8 @@ N::N(){
     shape[3].posX=1;    shape[3].posY=0;
     shape[4].posX=2;    shape[4].posY=0;
     rotateState=0;
-    x=300;
-    y=200;
+    x=200;
+    y=600;
 };
 
 void N::move(){

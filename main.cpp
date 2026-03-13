@@ -1,8 +1,15 @@
 #include "include/raylib.h"
 #include "tableau.h"
 
+//ATENTION LE X ET Y A L AFFICHGE SONT INVERSER DONC LE X EST SUR LA VERTICALE ET LE Y SUR L HORISONTALE
+//DANS LE CODE X EST L HORIZITAL ET Y LA VERTICALE (x entre 0 et 5 et y entre 0 et nbLigne) DONC C NORMAL
+//
+//
+//
+//
+//
 int main(){
-    InitWindow(1000, 750, "tests");
+    InitWindow(750, 1000, "tests");
     SetTargetFPS(60);
 
 
@@ -20,7 +27,15 @@ int main(){
     shapes[10]=new Y;
     shapes[11]=new N;
     Tableau tab;
-    tab.placeShape(0, 1,1);
+    if(tab.canPlace(0, 0, 0)){
+        std::cout<<"problem\n";
+    }
+    std::cout<<"\n\n\n"<<tab.nbOpti(2, 2, 0)<<std::endl;
+    tab.placeShape(2, 2, 0);
+
+    if(tab.canPlace(0, 2, 2)){
+        //std::cout<<"problem2\n";
+    }
     while(!WindowShouldClose()){
         //BeginDrawing();
         //ClearBackground(RAYWHITE);

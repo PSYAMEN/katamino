@@ -6,18 +6,17 @@
 
 Tableau::Tableau(){
     availShape[0]=new U;
-    availShape[1]=new P;
-    availShape[2]=new I;
-    availShape[3]=new L;
-    availShape[4]=new T;
-    availShape[5]=new V;
-    availShape[6]=new W;
-    availShape[7]=new X;
+    availShape[1]=new I;
+    availShape[2]=new L;
+    availShape[3]=new T;
+    availShape[4]=new V;
+    availShape[5]=new X;
+    availShape[6]=new P;
+    availShape[7]=new W;
     availShape[8]=new F;
     availShape[9]=new Z;
     availShape[10]=new Y;
     availShape[11]=new N;
-
     nbLigne=12;
     nbPlacedShapes=0;
 
@@ -36,13 +35,13 @@ Tableau::Tableau(){
 Tableau::Tableau(int nbL){
     srand(time(NULL));
     availShape[0]=new U;
-    availShape[1]=new P;
-    availShape[2]=new I;
-    availShape[3]=new L;
-    availShape[4]=new T;
-    availShape[5]=new V;
-    availShape[6]=new W;
-    availShape[7]=new X;
+    availShape[1]=new I;
+    availShape[2]=new L;
+    availShape[3]=new T;
+    availShape[4]=new V;
+    availShape[5]=new X;
+    availShape[6]=new P;
+    availShape[7]=new W;
     availShape[8]=new F;
     availShape[9]=new Z;
     availShape[10]=new Y;
@@ -81,18 +80,18 @@ void Tableau::render(){
     BeginDrawing();
     ClearBackground(RAYWHITE);
     for (int i=0;i<=nbLigne;i++){
-        DrawLine( disFromSide+i*cubeSize,187,   disFromSide+i*cubeSize,562, BLACK);
+        DrawLine( 675,disFromSide+i*cubeSize,300,disFromSide+i*cubeSize,    BLACK);
     }
     for (int i=0;i<=5;i++){
-        DrawLine(disFromSide,187+i*cubeSize, 1000-disFromSide,187+i*cubeSize, BLACK);
+        DrawLine( 300+i*cubeSize,1000-disFromSide,300+i*cubeSize, disFromSide,BLACK);
     }
     for(int i=0;i<5;i++){
         for(int j=0;j<nbLigne;j++){
-            if(!tab[i][j].opti || tab[i][j].take) DrawRectangle(disFromSide+j*cubeSize, 187+i*cubeSize, cubeSize-1, cubeSize-1, tab[i][j].color);
-            if(tab[i][j].opti && !tab[i][j].take) DrawRectangle(disFromSide+j*cubeSize, 187+i*cubeSize, cubeSize-1, cubeSize-1, GREEN);
+            if(!tab[i][j].opti || tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, tab[i][j].color);
+            if(tab[i][j].opti && !tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, GREEN);
         }
     }
-    for (int i=0;i<nbLigne;i++){
+    for (int i=nbPlacedShapes;i<nbLigne;i++){
         availShape[i]->render();
     }
     EndDrawing();
@@ -101,9 +100,10 @@ void Tableau::render(){
 void Tableau::placeShape(int indiceS,int x,int y){
     for(int i=0;i<5;i++){
         tab[x+availShape[indiceS]->shape[i].posX][y+availShape[indiceS]->shape[i].posY]=availShape[indiceS]->shape[i];  
+        tab[x+availShape[indiceS]->shape[i].posX][y+availShape[indiceS]->shape[i].posY].take=true;
         for(int j=-1;j<2;j++){
             for(int k=-1;k<2;k++){
-                if(x+availShape[indiceS]->shape[i].posX+j>=0 && x+availShape[indiceS]->shape[i].posX+j<5 && y+availShape[indiceS]->shape[i].posY+k>=0 &&y+availShape[indiceS]->shape[i].posY+k<nbLigne && j!=k){
+                if(x+availShape[indiceS]->shape[i].posX+j>=0 && x+availShape[indiceS]->shape[i].posX+j<5 && y+availShape[indiceS]->shape[i].posY+k>=0 &&y+availShape[indiceS]->shape[i].posY+k<nbLigne && j*j!=k*k){
                     tab[x+availShape[indiceS]->shape[i].posX+j][y+availShape[indiceS]->shape[i].posY+k].opti=true;
                 }
             }
@@ -114,6 +114,20 @@ void Tableau::placeShape(int indiceS,int x,int y){
     placedShapes[nbPlacedShapes].indiceDansTab=indiceS;
     placedShapes[nbPlacedShapes].shape=*availShape[indiceS];
     nbPlacedShapes++;
-    
-
 }
+
+bool Tableau::canPlace(int indiceS,int x,int y){
+    for(int i=0;i<5;i++){
+        if(x+availShape[indiceS]->shape[i].posX<0 || x+availShape[indiceS]->shape[i].posX>5 || y+availShape[indiceS]->shape[i].posY<0 || y+availShape[indiceS]->shape[i].posY>nbLigne-1) return false;
+        if(tab[x+availShape[indiceS]->shape[i].posX][y+availShape[indiceS]->shape[i].posY].take) return false;
+    }
+    return true;
+}
+
+int Tableau::nbOpti(int indiceS,int x,int y){
+    int nbOpti=0;
+    for(int i=0;i<5;i++){
+        if(tab[x+availShape[indiceS]->shape[i].posX][y+availShape[indiceS]->shape[i].posY].opti) nbOpti++;;
+    }
+    return nbOpti;
+ }

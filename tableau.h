@@ -1,5 +1,12 @@
 #include "forme.h"
 
+//ATENTION LE X ET Y A L AFFICHGE SONT INVERSER DONC LE X EST SUR LA VERTICALE ET LE Y SUR L HORISONTALE
+//DANS LE CODE X EST L HORIZITAL ET Y LA VERTICALE (x entre 0 et 5 et y entre 0 et nbLigne) DONC C NORMAL
+//
+//
+//
+//
+
 struct SavePlacement{
     Shape shape; //pas un pointeur come on prend une copie parce que si c'est des pointeur on peu pas le comparer a ceux dans availShapes
     int posX,posY;
