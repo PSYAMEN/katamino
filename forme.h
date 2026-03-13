@@ -3,7 +3,8 @@
 
 struct Cell{
     int posX,posY;
-    bool take,opti;
+    bool take;
+    int opti;
     Color color;
 };
 

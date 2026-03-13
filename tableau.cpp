@@ -88,7 +88,7 @@ void Tableau::render(){
     for(int i=0;i<5;i++){
         for(int j=0;j<nbLigne;j++){
             if(tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, tab[i][j].color);//ceux qui sotn pris
-            if(!tab[i][j].opti && !tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, WHITE);//ceux qui sont pas paris mais pas opti
+            if(!tab[i][j].opti>0 && !tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, WHITE);//ceux qui sont pas paris mais pas opti
             if(tab[i][j].opti && !tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, GREEN);//ceux qui sotn pas pris et opti
         }
     }
@@ -105,7 +105,7 @@ void Tableau::placeShape(int indiceS,int x,int y){
         for(int j=-1;j<2;j++){
             for(int k=-1;k<2;k++){
                 if(x+availShape[indiceS]->shape[i].posX+j>=0 && x+availShape[indiceS]->shape[i].posX+j<5 && y+availShape[indiceS]->shape[i].posY+k>=0 &&y+availShape[indiceS]->shape[i].posY+k<nbLigne && j*j!=k*k){
-                    tab[x+availShape[indiceS]->shape[i].posX+j][y+availShape[indiceS]->shape[i].posY+k].opti=true;
+                    tab[x+availShape[indiceS]->shape[i].posX+j][y+availShape[indiceS]->shape[i].posY+k].opti++;
                 }
             }
         }
@@ -128,7 +128,7 @@ bool Tableau::canPlace(int indiceS,int x,int y){
 int Tableau::nbOpti(int indiceS,int x,int y){
     int nbOpti=0;
     for(int i=0;i<5;i++){
-        if(tab[x+availShape[indiceS]->shape[i].posX][y+availShape[indiceS]->shape[i].posY].opti) nbOpti++;;
+        nbOpti+=tab[x+availShape[indiceS]->shape[i].posX][y+availShape[indiceS]->shape[i].posY].opti;
     }
     return nbOpti;
  }
