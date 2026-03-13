@@ -2,7 +2,6 @@
 #include "include/raylib.h"
 
 Shape::Shape(){
-    shape=new Cell[5];
     for (int i=0;i<5;i++){
         shape[i].color=RED;
         shape[i].opti=false;
@@ -24,7 +23,6 @@ Shape::Shape(){
 }
 
 Shape::~Shape(){
-    delete [] shape;
     rotateState=0;
 }
 
@@ -84,7 +82,7 @@ void Shape::move(){
 }
 
 U::U(){
-    shape=new Cell[5];
+    
     for (int i=0;i<5;i++){
         shape[i].color=DARKGREEN;
         shape[i].opti=false;
@@ -103,11 +101,6 @@ U::U(){
     rotateState=0;
     x=100;
     y=100;
-}
-
-U::~U(){
-    delete [] shape;
-    rotateState=0;
 }
 
 void U::move(){
@@ -139,7 +132,7 @@ void U::move(){
 }
 
 P::P(){
-    shape=new Cell[5];
+    
     for (int i=0;i<5;i++){
         shape[i].color=GREEN;
         shape[i].opti=false;
@@ -158,11 +151,6 @@ P::P(){
     rotateState=0;
     x=700;
     y=100;
-}
-
-P::~P(){
-    delete [] shape;
-    rotateState=0;
 }
 
 void P::move(){
@@ -194,7 +182,7 @@ void P::move(){
 }
 
 I::I(){
-    shape=new Cell[5];
+    
     for (int i=0;i<5;i++){
         shape[i].color=PINK;
         shape[i].opti=false;
@@ -213,11 +201,6 @@ I::I(){
     rotateState=0;
     x=200;
     y=100;
-}
-
-I::~I(){
-    delete [] shape;
-    rotateState=0;
 }
 
 void I::move(){
@@ -249,7 +232,7 @@ void I::move(){
 }
 
 L::L(){
-    shape=new Cell[5];
+    
     for (int i=0;i<5;i++){
         shape[i].color=BLUE;
         shape[i].opti=false;
@@ -295,7 +278,7 @@ void L::move(){
 }
 
 T::T(){
-    shape=new Cell[5];
+    
     for (int i=0;i<5;i++){
         shape[i].color=ORANGE;
         shape[i].opti=false;
@@ -345,7 +328,7 @@ void T::move(){
 }
 
 V::V(){
-    shape=new Cell[5];
+    
     for (int i=0;i<5;i++){
         shape[i].color=DARKPURPLE;
         shape[i].opti=false;
@@ -395,7 +378,7 @@ void V::move(){
 }
 
 W::W(){
-    shape=new Cell[5];
+    
     for (int i=0;i<5;i++){
         shape[i].color=GREEN;
         shape[i].opti=false;
@@ -448,7 +431,7 @@ void W::move(){
 //XXX
 // X
 X::X(){
-    shape=new Cell[5];
+    
     for (int i=0;i<5;i++){
         shape[i].color=PURPLE;
         shape[i].opti=false;
@@ -498,7 +481,7 @@ void X::move(){
 // XX
 // X
 F::F(){
-    shape=new Cell[5];
+    
     for (int i=0;i<5;i++){
         shape[i].color=PURPLE;
         shape[i].opti=false;
@@ -548,7 +531,7 @@ void F::move(){
 // XX
 
 Z::Z(){
-    shape=new Cell[5];
+    
     for (int i=0;i<5;i++){
         shape[i].color=PURPLE;
         shape[i].opti=false;
@@ -597,7 +580,7 @@ void Z::move(){
 // X
 
 Y::Y(){
-    shape=new Cell[5];
+    
     for (int i=0;i<5;i++){
         shape[i].color=PURPLE;
         shape[i].opti=false;
@@ -646,7 +629,7 @@ void Y::move(){
 // XXX
 
 N::N(){
-    shape=new Cell[5];
+    
     for (int i=0;i<5;i++){
         shape[i].color=PURPLE;
         shape[i].opti=false;

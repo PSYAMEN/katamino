@@ -14,7 +14,7 @@ protected:
     int cubeSize=20;
     int x,y;
 public:
-    Cell *shape;
+    Cell shape[5];//on y a acces deja pour les constructeur masi aussi 
     Shape();
     ~Shape();
     void render();
