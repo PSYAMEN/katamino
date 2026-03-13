@@ -9,7 +9,7 @@ struct SavePlacement{
 
 class Tableau{
 private:
-    Shape tab[5][12];
+    Cell tab[5][12];
     int nbLigne;//aussi utiliser pour availShape pour savoir combien de formes on a le droit d'utiliser
     Shape availShape[12];
     int nextShape;
