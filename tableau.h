@@ -10,13 +10,13 @@ struct SavePlacement{
 class Tableau{
 private:
     Shape tab[5][12];
-    int nbLigne;
+    int nbLigne;//aussi utiliser pour availShape pour savoir combien de formes on a le droit d'utiliser
     Shape availShape[12];
     int nextShape;
     SavePlacement placedShapes[12];
 public:
-    Tableau();
-    Tableau(int nbL);
+    Tableau();//tableau de 5x12 avec toute les forme de disponible
+    Tableau(int nbL);//shuffel et met de maniere aleatoir les shape dans availShapes pour pas toujour avoir les meme si le tableau est pas entier (comme chaque shape fait 5 case il y a nbL shape dans le tableau de disponible)
     bool canPlace(int indiceS,int x,int y);//on prend une forme et on verifie que elle ets pas sur une autre en fonctione de x et y(sa position)
     int nbOpti(int indiceS,int x,int y);//on renvoie le nombre de case sur laquel elle est a coter (diagonale compris normalement)
     void placeShape(int indiceS,int x,int y);//on pose la forme du tableau on invremente nextShape
