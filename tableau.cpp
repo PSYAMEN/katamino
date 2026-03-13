@@ -22,11 +22,11 @@ Tableau::Tableau(){
 
     for (int i=0;i<5;i++){//met tout a pas opti sauf les coter et met tout a "pas pris"
         for (int j=0;j<nbLigne;j++){
-            tab[i][j].opti=false;
+            tab[i][j].opti=0;
             tab[i][j].take=false;
             tab[i][j].color=WHITE;
             if(i==0 || i==4 || j==0 || j==nbLigne-1){
-                tab[i][j].opti=true;
+                tab[i][j].opti=1;
             }
         }
     }
@@ -58,11 +58,11 @@ Tableau::Tableau(int nbL){
 
     for (int i=0;i<5;i++){//met tout a pas opti sauf les coter et met tout a "pas pris"
         for (int j=0;j<nbLigne;j++){
-            tab[i][j].opti=false;
+            tab[i][j].opti=0;
             tab[i][j].take=false;
             tab[i][j].color=WHITE;
             if(i==0 || i==4 || j==0 ||j==nbLigne-1){
-                tab[i][j].opti=true;
+                tab[i][j].opti=1;
             }
         }
     }
@@ -88,8 +88,8 @@ void Tableau::render(){
     for(int i=0;i<5;i++){
         for(int j=0;j<nbLigne;j++){
             if(tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, tab[i][j].color);//ceux qui sotn pris
-            if(!tab[i][j].opti>0 && !tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, WHITE);//ceux qui sont pas paris mais pas opti
-            if(tab[i][j].opti && !tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, GREEN);//ceux qui sotn pas pris et opti
+            if(tab[i][j].opti==0 && !tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, WHITE);//ceux qui sont pas paris mais pas opti
+            if(tab[i][j].opti>0 && !tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, GREEN);//ceux qui sotn pas pris et opti
         }
     }
     for (int i=nbPlacedShapes;i<nbLigne;i++){
