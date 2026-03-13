@@ -1,4 +1,4 @@
-all: katamino clean
+all: katamino 
 
 katamino: forme.o tableau.o main.o
 	g++ $^ -o $@ /home/PSYAMEN/PeiP2/InfoS4/POTE/lib/linux/libraylib.a
