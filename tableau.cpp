@@ -100,12 +100,14 @@ void Tableau::render(){
 
 void Tableau::placeShape(int indiceS,int x,int y){
     for(int i=0;i<5;i++){
-        tab[x+availShape[indiceS]->shape[i].posX][y+availShape[indiceS]->shape[i].posY]=availShape[indiceS]->shape[i];  
-        tab[x+availShape[indiceS]->shape[i].posX][y+availShape[indiceS]->shape[i].posY].take=true;
+        int posX=x+availShape[indiceS]->shape[i].posX;
+        int posY=y+availShape[indiceS]->shape[i].posY;
+        tab[posX][posY].color=availShape[indiceS]->shape[i].color; 
+        tab[posX][posY].take=true;
         for(int j=-1;j<2;j++){
             for(int k=-1;k<2;k++){
-                if(x+availShape[indiceS]->shape[i].posX+j>=0 && x+availShape[indiceS]->shape[i].posX+j<5 && y+availShape[indiceS]->shape[i].posY+k>=0 &&y+availShape[indiceS]->shape[i].posY+k<nbLigne && j*j!=k*k){
-                    tab[x+availShape[indiceS]->shape[i].posX+j][y+availShape[indiceS]->shape[i].posY+k].opti++;
+                if(j*j!=k*k && posX+j>=0 && posX+j<5 && posY+k>=0 && posY+k<nbLigne){
+                    tab[posX+j][posY+k].opti++;
                 }
             }
         }
