@@ -12,11 +12,15 @@ int main(){
     shapes[5]=new V;
     shapes[6]=new W;
     shapes[7]=new X;
+    shapes[8]=new F;
+    shapes[9]=new Z;
+    shapes[10]=new Y;
+    shapes[11]=new N;
     SetTargetFPS(60);
     while(!WindowShouldClose()){
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        for (int i=0;i<8;i++){
+        for (int i=0;i<12;i++){
             shapes[i]->rotate();
             shapes[i]->render();
             shapes[i]->move();

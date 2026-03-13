@@ -492,3 +492,200 @@ void X::move(){
         }
     }
 }
+
+
+//XX
+// XX
+// X
+F::F(){
+    shape=new Cell[5];
+    for (int i=0;i<5;i++){
+        shape[i].color=PURPLE;
+        shape[i].opti=false;
+        shape[i].take=true;
+    }
+    shape[0].posX=0;    shape[0].posY=0;
+    shape[1].posX=1;   shape[1].posY=0;
+    shape[2].posX=0;    shape[2].posY=1;
+    shape[3].posX=0;    shape[3].posY=-1;
+    shape[4].posX=-1;    shape[4].posY=-1;
+    rotateState=0;
+    x=900;
+    y=100;
+};
+
+void F::move(){
+    bool move=false;
+    if(!IsMouseButtonDown(MOUSE_LEFT_BUTTON)) return;
+    for (int i=0;i<5;i++){
+        if ((GetMouseX()>=shape[i].posX*cubeSize+x-5 && GetMouseX()<shape[i].posX*cubeSize+cubeSize+x+5) && (GetMouseY()>=shape[i].posY*cubeSize+y-5 && GetMouseY()<shape[i].posY*cubeSize+cubeSize+y+5)) move=true; 
+    }
+    if (move){
+        switch(rotateState){
+        case 0:
+            x=GetMouseX()-cubeSize/2;
+            y=GetMouseY()-cubeSize/2;
+            break;
+        case 1:
+            x=GetMouseX()-cubeSize/2;
+            y=GetMouseY()-cubeSize/2;
+            break;
+        case 2:
+            x=GetMouseX()-cubeSize/2;
+            y=GetMouseY()-cubeSize/2;
+            break;
+        case 3:
+            x=GetMouseX()-cubeSize/2;
+            y=GetMouseY()-cubeSize/2;
+            break;
+        }
+    }
+}
+
+
+//XX
+// X
+// XX
+
+Z::Z(){
+    shape=new Cell[5];
+    for (int i=0;i<5;i++){
+        shape[i].color=PURPLE;
+        shape[i].opti=false;
+        shape[i].take=true;
+    }
+    shape[0].posX=0;    shape[0].posY=0;
+    shape[1].posX=1;   shape[1].posY=1;
+    shape[2].posX=0;    shape[2].posY=1;
+    shape[3].posX=0;    shape[3].posY=-1;
+    shape[4].posX=-1;    shape[4].posY=-1;
+    rotateState=0;
+    x=100;
+    y=200;
+};
+
+void Z::move(){
+    bool move=false;
+    if(!IsMouseButtonDown(MOUSE_LEFT_BUTTON)) return;
+    for (int i=0;i<5;i++){
+        if ((GetMouseX()>=shape[i].posX*cubeSize+x-5 && GetMouseX()<shape[i].posX*cubeSize+cubeSize+x+5) && (GetMouseY()>=shape[i].posY*cubeSize+y-5 && GetMouseY()<shape[i].posY*cubeSize+cubeSize+y+5)) move=true; 
+    }
+    if (move){
+        switch(rotateState){
+        case 0:
+            x=GetMouseX()-cubeSize/2;
+            y=GetMouseY()-cubeSize/2;
+            break;
+        case 1:
+            x=GetMouseX()-cubeSize/2;
+            y=GetMouseY()-cubeSize/2;
+            break;
+        case 2:
+            x=GetMouseX()-cubeSize/2;
+            y=GetMouseY()-cubeSize/2;
+            break;
+        case 3:
+            x=GetMouseX()-cubeSize/2;
+            y=GetMouseY()-cubeSize/2;
+            break;
+        }
+    }
+}
+
+
+//XXXX
+// X
+
+Y::Y(){
+    shape=new Cell[5];
+    for (int i=0;i<5;i++){
+        shape[i].color=PURPLE;
+        shape[i].opti=false;
+        shape[i].take=true;
+    }
+    shape[0].posX=0;    shape[0].posY=0;
+    shape[1].posX=-1;   shape[1].posY=0;
+    shape[2].posX=1;    shape[2].posY=0;
+    shape[3].posX=2;    shape[3].posY=0;
+    shape[4].posX=0;    shape[4].posY=1;
+    rotateState=0;
+    x=200;
+    y=200;
+};
+
+void Y::move(){
+    bool move=false;
+    if(!IsMouseButtonDown(MOUSE_LEFT_BUTTON)) return;
+    for (int i=0;i<5;i++){
+        if ((GetMouseX()>=shape[i].posX*cubeSize+x-5 && GetMouseX()<shape[i].posX*cubeSize+cubeSize+x+5) && (GetMouseY()>=shape[i].posY*cubeSize+y-5 && GetMouseY()<shape[i].posY*cubeSize+cubeSize+y+5)) move=true; 
+    }
+    if (move){
+        switch(rotateState){
+        case 0:
+            x=GetMouseX()-cubeSize/2;
+            y=GetMouseY()-cubeSize/2;
+            break;
+        case 1:
+            x=GetMouseX()-cubeSize/2;
+            y=GetMouseY()-cubeSize/2;
+            break;
+        case 2:
+            x=GetMouseX()-cubeSize/2;
+            y=GetMouseY()-cubeSize/2;
+            break;
+        case 3:
+            x=GetMouseX()-cubeSize/2;
+            y=GetMouseY()-cubeSize/2;
+            break;
+        }
+    }
+}
+
+
+//XX
+// XXX
+
+N::N(){
+    shape=new Cell[5];
+    for (int i=0;i<5;i++){
+        shape[i].color=PURPLE;
+        shape[i].opti=false;
+        shape[i].take=true;
+    }
+    shape[0].posX=0;    shape[0].posY=0;
+    shape[1].posX=-1;   shape[1].posY=-1;
+    shape[2].posX=0;    shape[2].posY=-1;
+    shape[3].posX=1;    shape[3].posY=0;
+    shape[4].posX=2;    shape[4].posY=0;
+    rotateState=0;
+    x=300;
+    y=200;
+};
+
+void N::move(){
+    bool move=false;
+    if(!IsMouseButtonDown(MOUSE_LEFT_BUTTON)) return;
+    for (int i=0;i<5;i++){
+        if ((GetMouseX()>=shape[i].posX*cubeSize+x-5 && GetMouseX()<shape[i].posX*cubeSize+cubeSize+x+5) && (GetMouseY()>=shape[i].posY*cubeSize+y-5 && GetMouseY()<shape[i].posY*cubeSize+cubeSize+y+5)) move=true; 
+    }
+    if (move){
+        switch(rotateState){
+        case 0:
+            x=GetMouseX()-cubeSize/2;
+            y=GetMouseY()-cubeSize/2;
+            break;
+        case 1:
+            x=GetMouseX()-cubeSize/2;
+            y=GetMouseY()-cubeSize/2;
+            break;
+        case 2:
+            x=GetMouseX()-cubeSize/2;
+            y=GetMouseY()-cubeSize/2;
+            break;
+        case 3:
+            x=GetMouseX()-cubeSize/2;
+            y=GetMouseY()-cubeSize/2;
+            break;
+        }
+    }
+}
