@@ -87,8 +87,9 @@ void Tableau::render(){
     }
     for(int i=0;i<5;i++){
         for(int j=0;j<nbLigne;j++){
-            if(!tab[i][j].opti || tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, tab[i][j].color);
-            if(tab[i][j].opti && !tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, GREEN);
+            if(tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, tab[i][j].color);//ceux qui sotn pris
+            if(!tab[i][j].opti && !tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, WHITE);//ceux qui sont pas paris mais pas opti
+            if(tab[i][j].opti && !tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, GREEN);//ceux qui sotn pas pris et opti
         }
     }
     for (int i=nbPlacedShapes;i<nbLigne;i++){
@@ -131,3 +132,21 @@ int Tableau::nbOpti(int indiceS,int x,int y){
     }
     return nbOpti;
  }
+
+
+void Tableau::removeShape(int i){//a faire
+
+}
+
+void Tableau::algorythmeDePlacage(){
+    while(!WindowShouldClose()){
+        while(!WindowShouldClose() && nbLigne!=nbPlacedShapes){
+            //ecrire la fonctione ici
+
+
+            //finir ici 
+            render();
+        }
+        render();
+    }
+}

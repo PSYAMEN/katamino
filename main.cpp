@@ -27,24 +27,7 @@ int main(){
     shapes[10]=new Y;
     shapes[11]=new N;
     Tableau tab;
-    if(tab.canPlace(0, 0, 0)){
-        std::cout<<"problem\n";
-    }
-    std::cout<<"\n\n\n"<<tab.nbOpti(2, 2, 0)<<std::endl;
-    tab.placeShape(2, 2, 0);
 
-    if(tab.canPlace(0, 2, 2)){
-        //std::cout<<"problem2\n";
-    }
-    while(!WindowShouldClose()){
-        //BeginDrawing();
-        //ClearBackground(RAYWHITE);
-        //for (int i=0;i<12;i++){
-        //    shapes[i]->rotate();
-        //    shapes[i]->render();
-        //    shapes[i]->move();
-        //}
-        //EndDrawing();
-        tab.render();
-    }
+    
+    tab.algorythmeDePlacage();
 }
