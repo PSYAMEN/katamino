@@ -1,7 +1,7 @@
 #include "forme.h"
 
 struct SavePlacement{
-    Shape shape;
+    Shape *shape; //on peu comparer les adresse c plus facile
     int posX,posY;
     int indiceDansTab;
     int nbOpti;//on verifiera ca quand in decrement pour etre sur de ne pas reprendre le meme 2 fois d'affiler et eviter de refaire idefiniment la meme operaton
@@ -17,6 +17,7 @@ private:
 public:
     Tableau();//tableau de 5x12 avec toute les forme de disponible
     Tableau(int nbL);//shuffel et met de maniere aleatoir les shape dans availShapes pour pas toujour avoir les meme si le tableau est pas entier (comme chaque shape fait 5 case il y a nbL shape dans le tableau de disponible)
+    ~Tableau();
     void render();//affiche avec raylib
     bool canPlace(int indiceS,int x,int y);//on prend une forme et on verifie que elle ets pas sur une autre en fonctione de x et y(sa position)
     int nbOpti(int indiceS,int x,int y);//on renvoie le nombre de case sur laquel elle est a coter (diagonale compris normalement)
