@@ -18,6 +18,7 @@ Tableau::Tableau(){
     availShape[11]=new N;
 
     nbLigne=12;
+    nbPlacedShapes=0;
 }
 
 Tableau::Tableau(int nbL){
@@ -41,6 +42,7 @@ Tableau::Tableau(int nbL){
     }
 
     nbLigne=nbL;
+    nbPlacedShapes=0;
 }
 
 Tableau::~Tableau(){
