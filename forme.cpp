@@ -345,7 +345,7 @@ void T::move(){
 V::V(){
     
     for (int i=0;i<5;i++){
-        shape[i].color=GREEN;
+        shape[i].color=MAGENTA;
         shape[i].opti=false;
         shape[i].take=true;
     }
