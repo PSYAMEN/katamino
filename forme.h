@@ -20,6 +20,7 @@ public:
     void render();
     void rotate();
     virtual void move();
+    void operator =(Shape s2);
 };
 
 //X X

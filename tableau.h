@@ -1,7 +1,7 @@
 #include "forme.h"
 
 struct SavePlacement{
-    Shape *shape; //on peu comparer les adresse c plus facile
+    Shape shape; //pas un pointeur come on prend une copie parce que si c'est des pointeur on peu pas le comparer a ceux dans availShapes
     int posX,posY;
     int indiceDansTab;
     int nbOpti;//on verifiera ca quand in decrement pour etre sur de ne pas reprendre le meme 2 fois d'affiler et eviter de refaire idefiniment la meme operaton
@@ -11,8 +11,8 @@ class Tableau{
 private:
     Cell tab[5][12];
     int nbLigne;//aussi utiliser pour availShape pour savoir combien de formes on a le droit d'utiliser
-    Shape *availShape[12];
-    SavePlacement placedShapes[12];
+    Shape* availShape[12];
+    SavePlacement placedShapes[12];//pas un pointeur come on prend une copie parce que si c'est des pointeur on peu pas le comparer a ceux dans availShapes
     int nbPlacedShapes;//le nombre de formes placer(fini le prog si )
 public:
     Tableau();//tableau de 5x12 avec toute les forme de disponible

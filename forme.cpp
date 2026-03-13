@@ -81,6 +81,24 @@ void Shape::move(){
     }
 }
 
+
+void Shape::operator =(Shape s2){
+    shape[0].posX=s2.shape[0].posX;
+    shape[1].posX=s2.shape[1].posX;
+    shape[2].posX=s2.shape[2].posX;
+    shape[3].posX=s2.shape[3].posX;
+    shape[4].posX=s2.shape[4].posX;
+    shape[0].posY=s2.shape[0].posY;
+    shape[1].posY=s2.shape[1].posY;
+    shape[2].posY=s2.shape[2].posY;
+    shape[3].posY=s2.shape[3].posY;
+    shape[4].posY=s2.shape[4].posY;
+    rotateState=s2.rotateState ;
+    x=s2.x;
+    y=s2.y;
+    cubeSize=s2.cubeSize;
+}
+
 U::U(){
     
     for (int i=0;i<5;i++){

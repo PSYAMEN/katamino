@@ -6,7 +6,7 @@ katamino: forme.o tableau.o main.o
 main.o: main.cpp forme.h tableau.h
 	g++ -c main.cpp -Wall -O2 -static-libgcc -static-libstdc++
 
-tableau.o: tableau.h forme.h
+tableau.o: tableau.h tableau.cpp forme.h
 	g++ -c tableau.cpp -Wall -O2 -static-libgcc -static-libstdc++
 
 forme.o: forme.cpp forme.h
