@@ -84,7 +84,7 @@ void Shape::move(){
 U::U(){
     
     for (int i=0;i<5;i++){
-        shape[i].color=DARKGREEN;
+        shape[i].color=YELLOW;
         shape[i].opti=false;
         shape[i].take=true;
     }
@@ -134,7 +134,7 @@ void U::move(){
 P::P(){
     
     for (int i=0;i<5;i++){
-        shape[i].color=GREEN;
+        shape[i].color=PINK;
         shape[i].opti=false;
         shape[i].take=true;
     }
@@ -184,7 +184,7 @@ void P::move(){
 I::I(){
     
     for (int i=0;i<5;i++){
-        shape[i].color=PINK;
+        shape[i].color=SKYBLUE;
         shape[i].opti=false;
         shape[i].take=true;
     }
@@ -234,7 +234,7 @@ void I::move(){
 L::L(){
     
     for (int i=0;i<5;i++){
-        shape[i].color=BLUE;
+        shape[i].color=ORANGE;
         shape[i].opti=false;
         shape[i].take=true;
     }
@@ -280,7 +280,7 @@ void L::move(){
 T::T(){
     
     for (int i=0;i<5;i++){
-        shape[i].color=ORANGE;
+        shape[i].color=VIOLET;
         shape[i].opti=false;
         shape[i].take=true;
     }
@@ -330,7 +330,7 @@ void T::move(){
 V::V(){
     
     for (int i=0;i<5;i++){
-        shape[i].color=DARKPURPLE;
+        shape[i].color=GREEN;
         shape[i].opti=false;
         shape[i].take=true;
     }
@@ -380,7 +380,7 @@ void V::move(){
 W::W(){
     
     for (int i=0;i<5;i++){
-        shape[i].color=GREEN;
+        shape[i].color=BLUE;
         shape[i].opti=false;
         shape[i].take=true;
     }
@@ -433,7 +433,7 @@ void W::move(){
 X::X(){
     
     for (int i=0;i<5;i++){
-        shape[i].color=PURPLE;
+        shape[i].color=MAROON;
         shape[i].opti=false;
         shape[i].take=true;
     }
@@ -483,7 +483,7 @@ void X::move(){
 F::F(){
     
     for (int i=0;i<5;i++){
-        shape[i].color=PURPLE;
+        shape[i].color=LIME;
         shape[i].opti=false;
         shape[i].take=true;
     }
@@ -533,7 +533,7 @@ void F::move(){
 Z::Z(){
     
     for (int i=0;i<5;i++){
-        shape[i].color=PURPLE;
+        shape[i].color=BROWN;
         shape[i].opti=false;
         shape[i].take=true;
     }
@@ -582,7 +582,7 @@ void Z::move(){
 Y::Y(){
     
     for (int i=0;i<5;i++){
-        shape[i].color=PURPLE;
+        shape[i].color=SKYBLUE;
         shape[i].opti=false;
         shape[i].take=true;
     }
@@ -631,7 +631,7 @@ void Y::move(){
 N::N(){
     
     for (int i=0;i<5;i++){
-        shape[i].color=PURPLE;
+        shape[i].color=RED;
         shape[i].opti=false;
         shape[i].take=true;
     }
