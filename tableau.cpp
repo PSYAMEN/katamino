@@ -139,12 +139,14 @@ void Tableau::removeShape(int i){//a faire
 }
 
 void Tableau::algorythmeDePlacage(){
+    int f=0;
     while(!WindowShouldClose()){
         while(!WindowShouldClose() && nbLigne!=nbPlacedShapes){
             //ecrire la fonctione ici
 
 
             //finir ici 
+            f++;
             render();
         }
         render();

@@ -43,6 +43,13 @@ void Shape::rotate(){
     rotateState=(rotateState+1)%4;
 }
 
+
+void Shape::flip(){
+    for(int i=0;i<5;i++){
+        shape[i].posX=-shape[i].posX;
+    }
+}
+
 void Shape::move(){
     bool move=false;
     if(!IsMouseButtonDown(MOUSE_LEFT_BUTTON)) return;
