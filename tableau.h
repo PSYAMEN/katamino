@@ -4,6 +4,7 @@ struct SavePlacement{
     Shape shape;
     int posX,posY;
     int indiceDansTab;
+    int nbOpti;//on verifiera ca quand in decrement pour etre sur de ne pas reprendre le meme 2 fois d'affiler et eviter de refaire idefiniment la meme operaton
 };
 
 class Tableau{
