@@ -14,15 +14,20 @@ protected:
     int rotateState;
     int cubeSize=20;
     int x,y;
+    bool fliped;
 public:
+    char id;
     Cell shape[5];//on y a acces deja pour les constructeur masi aussi 
     Shape();
     ~Shape();
+    int getRota();
     void render();
     void rotate();
     virtual void move();
     void flip();
+    bool getFlip();
     void operator =(Shape s2);
+    bool operator !=(Shape s2);
 };
 
 //X X

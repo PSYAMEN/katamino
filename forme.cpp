@@ -4,7 +4,7 @@
 Shape::Shape(){
     for (int i=0;i<5;i++){
         shape[i].color=RED;
-        shape[i].opti=false;
+        shape[i].opti=0;
         shape[i].take=true;
     }
     shape[0].posX=-1;
@@ -18,12 +18,14 @@ Shape::Shape(){
     shape[3].posY=-1;
     shape[4].posY=0;
     rotateState=0;
+    fliped=false;
     x=500;
     y=375;
 }
 
 Shape::~Shape(){
     rotateState=0;
+    fliped=false;
 }
 
 void Shape::render(){
@@ -38,16 +40,24 @@ void Shape::rotate(){
         save=shape[i].posX;
         shape[i].posX=-shape[i].posY;
         shape[i].posY=save;
-        std::cout<<"posX: "<<shape[i].posX<<"  posY: "<<shape[i].posY<<std::endl;
+        //std::cout<<"posX: "<<shape[i].posX<<"  posY: "<<shape[i].posY<<std::endl;
     }
     rotateState=(rotateState+1)%4;
 }
 
 
+bool Shape::operator !=(Shape s2){
+    for(int i=0;i<5;i++){
+        if(shape[i].posX!=s2.shape[i].posX || shape[i].posY!=s2.shape[i].posY) return true;
+    }
+    return false;
+}
+
 void Shape::flip(){
     for(int i=0;i<5;i++){
         shape[i].posX=-shape[i].posX;
     }
+    fliped=!fliped;
 }
 
 void Shape::move(){
@@ -80,7 +90,7 @@ void Shape::move(){
 
 
 void Shape::operator =(Shape s2){
-    shape[0].posX=s2.shape[0].posX;
+    shape[0].posX=s2.shape[0].posX; 
     shape[1].posX=s2.shape[1].posX;
     shape[2].posX=s2.shape[2].posX;
     shape[3].posX=s2.shape[3].posX;
@@ -90,17 +100,35 @@ void Shape::operator =(Shape s2){
     shape[2].posY=s2.shape[2].posY;
     shape[3].posY=s2.shape[3].posY;
     shape[4].posY=s2.shape[4].posY;
+
+    shape[0].color=s2.shape[0].color;
+    shape[1].color=s2.shape[1].color;
+    shape[2].color=s2.shape[2].color;
+    shape[3].color=s2.shape[3].color;
+    shape[4].color=s2.shape[4].color;
     rotateState=s2.rotateState ;
+    
+    id=s2.id;
+
     x=s2.x;
     y=s2.y;
     cubeSize=s2.cubeSize;
 }
 
+
+int Shape::getRota(){
+    return rotateState;
+}
+
+bool Shape::getFlip(){
+    return fliped;
+}
+
 U::U(){
-    
+    id='U';
     for (int i=0;i<5;i++){
         shape[i].color=YELLOW;
-        shape[i].opti=false;
+        shape[i].opti=0;
         shape[i].take=true;
     }
     shape[0].posX=0;
@@ -114,6 +142,7 @@ U::U(){
     shape[3].posY=-1;
     shape[4].posY=-1;
     rotateState=0;
+    fliped=false;
     x=100;
     y=100;
 }
@@ -147,10 +176,10 @@ void U::move(){
 }
 
 P::P(){
-    
+    id ='P';
     for (int i=0;i<5;i++){
         shape[i].color=PINK;
-        shape[i].opti=false;
+        shape[i].opti=0;
         shape[i].take=true;
     }
     shape[0].posX=-1;
@@ -164,6 +193,7 @@ P::P(){
     shape[3].posY=-1;
     shape[4].posY=0;
     rotateState=0;
+    fliped=false;
     x=100;
     y=400;
 }
@@ -197,10 +227,10 @@ void P::move(){
 }
 
 I::I(){
-    
+    id='I';
     for (int i=0;i<5;i++){
         shape[i].color=SKYBLUE;
-        shape[i].opti=false;
+        shape[i].opti=0;
         shape[i].take=true;
     }
     shape[0].posX=0;
@@ -214,6 +244,7 @@ I::I(){
     shape[3].posY=0;
     shape[4].posY=0;
     rotateState=0;
+    fliped=false;
     x=200;
     y=100;
 }
@@ -247,10 +278,10 @@ void I::move(){
 }
 
 L::L(){
-    
+    id='L';
     for (int i=0;i<5;i++){
         shape[i].color=ORANGE;
-        shape[i].opti=false;
+        shape[i].opti=0;
         shape[i].take=true;
     }
     shape[0].posX=0;    shape[0].posY=-1;
@@ -260,6 +291,7 @@ L::L(){
     shape[4].posX=1;    shape[4].posY=2;
 
     rotateState=0;
+    fliped=false;
     x=100;
     y=200;
 }
@@ -293,10 +325,10 @@ void L::move(){
 }
 
 T::T(){
-    
+    id='T';
     for (int i=0;i<5;i++){
         shape[i].color=VIOLET;
-        shape[i].opti=false;
+        shape[i].opti=0;
         shape[i].take=true;
     }
     shape[0].posX=0;
@@ -310,6 +342,7 @@ T::T(){
     shape[3].posY=0;
     shape[4].posY=0;
     rotateState=0;
+    fliped=false;
     x=200;
     y=220;
 }
@@ -343,10 +376,10 @@ void T::move(){
 }
 
 V::V(){
-    
+    id='V';
     for (int i=0;i<5;i++){
         shape[i].color=MAGENTA;
-        shape[i].opti=false;
+        shape[i].opti=0;
         shape[i].take=true;
     }
     shape[0].posX=-1;
@@ -360,6 +393,7 @@ V::V(){
     shape[3].posY=1;
     shape[4].posY=1;
     rotateState=0;
+    fliped=false;
     x=100;
     y=300;
 }
@@ -391,25 +425,23 @@ void V::move(){
         }
     }
 }
-
+//X
+//XX
+// XX
 W::W(){
-    
+    id='W';
     for (int i=0;i<5;i++){
         shape[i].color=BLUE;
-        shape[i].opti=false;
+        shape[i].opti=0;
         shape[i].take=true;
     }
-    shape[0].posX=0;
-    shape[1].posX=-1;
-    shape[2].posX=0;
-    shape[3].posX=1;
-    shape[4].posX=-1;
-    shape[0].posY=0;
-    shape[1].posY=0;
-    shape[2].posY=1;
-    shape[3].posY=1;
-    shape[4].posY=-1;
+    shape[0].posX=0;  shape[0].posY=0;
+    shape[1].posX=-1; shape[1].posY=0;
+    shape[2].posX=0;  shape[2].posY=1;
+    shape[3].posX=1;  shape[3].posY=1;
+    shape[4].posX=-1; shape[4].posY=-1;
     rotateState=0;
+    fliped=false;
     x=200;
     y=400;
 }
@@ -446,10 +478,10 @@ void W::move(){
 //XXX
 // X
 X::X(){
-    
+    id='X';
     for (int i=0;i<5;i++){
         shape[i].color=MAROON;
-        shape[i].opti=false;
+        shape[i].opti=0;
         shape[i].take=true;
     }
     shape[0].posX=0;    shape[0].posY=0;
@@ -458,6 +490,7 @@ X::X(){
     shape[3].posX=0;    shape[3].posY=1;
     shape[4].posX=0;    shape[4].posY=-1;
     rotateState=0;
+    fliped=false;
     x=200;
     y=300;
 };
@@ -496,10 +529,10 @@ void X::move(){
 // XX
 // X
 F::F(){
-    
+    id='F';
     for (int i=0;i<5;i++){
         shape[i].color=LIME;
-        shape[i].opti=false;
+        shape[i].opti=0;
         shape[i].take=true;
     }
     shape[0].posX=0;    shape[0].posY=0;
@@ -508,6 +541,7 @@ F::F(){
     shape[3].posX=0;    shape[3].posY=-1;
     shape[4].posX=-1;    shape[4].posY=-1;
     rotateState=0;
+    fliped=false;
     x=100;
     y=500;
 };
@@ -546,10 +580,10 @@ void F::move(){
 // XX
 
 Z::Z(){
-    
+    id='Z';
     for (int i=0;i<5;i++){
         shape[i].color=BROWN;
-        shape[i].opti=false;
+        shape[i].opti=0;
         shape[i].take=true;
     }
     shape[0].posX=0;    shape[0].posY=0;
@@ -558,6 +592,7 @@ Z::Z(){
     shape[3].posX=0;    shape[3].posY=-1;
     shape[4].posX=-1;    shape[4].posY=-1;
     rotateState=0;
+    fliped=false;
     x=200;
     y=500;
 };
@@ -595,10 +630,10 @@ void Z::move(){
 // X
 
 Y::Y(){
-    
+    id='Y';
     for (int i=0;i<5;i++){
         shape[i].color=SKYBLUE;
-        shape[i].opti=false;
+        shape[i].opti=0;
         shape[i].take=true;
     }
     shape[0].posX=0;    shape[0].posY=0;
@@ -607,6 +642,7 @@ Y::Y(){
     shape[3].posX=2;    shape[3].posY=0;
     shape[4].posX=0;    shape[4].posY=1;
     rotateState=0;
+    fliped=false;
     x=100;
     y=600;
 };
@@ -644,10 +680,10 @@ void Y::move(){
 // XXX
 
 N::N(){
-    
+    id='N';
     for (int i=0;i<5;i++){
         shape[i].color=RED;
-        shape[i].opti=false;
+        shape[i].opti=0;
         shape[i].take=true;
     }
     shape[0].posX=0;    shape[0].posY=0;
@@ -656,6 +692,7 @@ N::N(){
     shape[3].posX=1;    shape[3].posY=0;
     shape[4].posX=2;    shape[4].posY=0;
     rotateState=0;
+    fliped=false;
     x=200;
     y=600;
 };

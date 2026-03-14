@@ -4,56 +4,152 @@
 #include "time.h"
 #include "math.h"
 
-Tableau::Tableau(){
-    availShape[0]=new U;
-    availShape[1]=new I;
-    availShape[2]=new L;
-    availShape[3]=new T;
-    availShape[4]=new V;
-    availShape[5]=new X;
-    availShape[6]=new P;
-    availShape[7]=new W;
-    availShape[8]=new F;
-    availShape[9]=new Z;
-    availShape[10]=new Y;
-    availShape[11]=new N;
-    nbLigne=12;
-    nbPlacedShapes=0;
-
-    for (int i=0;i<5;i++){//met tout a pas opti sauf les coter et met tout a "pas pris"
-        for (int j=0;j<nbLigne;j++){
-            tab[i][j].opti=0;
-            tab[i][j].take=false;
-            tab[i][j].color=WHITE;
-            if(i==0 || i==4 || j==0 || j==nbLigne-1){
-                tab[i][j].opti=1;
-            }
-        }
-    }
-}
+struct IndiceVsCheck{
+    int i,c=0;
+};
 
 Tableau::Tableau(int nbL){
     srand(time(NULL));
-    availShape[0]=new U;
-    availShape[1]=new I;
-    availShape[2]=new L;
-    availShape[3]=new T;
-    availShape[4]=new V;
-    availShape[5]=new X;
-    availShape[6]=new P;
-    availShape[7]=new W;
-    availShape[8]=new F;
-    availShape[9]=new Z;
-    availShape[10]=new Y;
-    availShape[11]=new N;
+    shapes[0]=new U;
+    shapes[1]=new I;
+    shapes[2]=new L;
+    shapes[3]=new T;
+    shapes[4]=new V;
+    shapes[5]=new X;
+    shapes[6]=new P;
+    shapes[7]=new W;
+    shapes[8]=new F;
+    shapes[9]=new Z;
+    shapes[10]=new Y;
+    shapes[11]=new N;
     for (int i=0;i<nbL;i++){//on fait un tableau de shape aleatoire 
-        Shape* temp=availShape[i];
+        Shape* temp=shapes[i];
         int r=rand()%(12-i)+i;
-        availShape[i]=availShape[r];
-        availShape[r]=temp;
+        shapes[i]=shapes[r];
+        shapes[r]=temp;
+    }
+    nbLigne=nbL;
+    nbPossibilities=0;
+
+    for(int s=0;s<nbLigne;s++){
+        switch (shapes[s]->id){
+            case 'X':{
+                availShape[nbPossibilities]=*shapes[s];
+                nbPossibilities++;
+                break;
+            }
+
+
+            case 'I':{
+                for(int i=0;i<2;i++){
+                    shapes[s]->rotate();
+                    availShape[nbPossibilities+i]=*shapes[s];
+                }
+                nbPossibilities+=2;
+                break;
+            }
+
+
+            case 'Z':{
+                for(int i=0;i<4;i++){
+                    shapes[s]->rotate();
+                    availShape[nbPossibilities+i]=*shapes[s];
+                }
+                nbPossibilities+=4;
+                break;
+            }
+            case 'T':{
+                for(int i=0;i<4;i++){
+                    shapes[s]->rotate();
+                    availShape[nbPossibilities+i]=*shapes[s];
+                }
+                nbPossibilities+=4;
+                break;
+            }
+            case 'U':{
+                for(int i=0;i<4;i++){
+                    shapes[s]->rotate();
+                    availShape[nbPossibilities+i]=*shapes[s];
+                }
+                nbPossibilities+=4;
+                break;
+            }
+            case 'V':{
+                for(int i=0;i<4;i++){
+                    shapes[s]->rotate();
+                    availShape[nbPossibilities+i]=*shapes[s];
+                }
+                nbPossibilities+=4;
+                break;
+            }            
+            case 'W':{
+                for(int i=0;i<4;i++){
+                    shapes[s]->rotate();
+                    availShape[nbPossibilities+i]=*shapes[s];
+                }
+                nbPossibilities+=4;
+                break;
+            }
+
+
+            case 'F':{
+                for(int j=0;j<2;j++){
+                    shapes[s]->flip();
+                    for(int i=0;i<4;i++){
+                        shapes[s]->rotate();
+                        availShape[nbPossibilities+i]=*shapes[s];
+                    }
+                    nbPossibilities+=4;
+                }
+                break;
+            }
+            case 'L':{
+                for(int j=0;j<2;j++){
+                    shapes[s]->flip();
+                    for(int i=0;i<4;i++){
+                        shapes[s]->rotate();
+                        availShape[nbPossibilities+i]=*shapes[s];
+                    }
+                    nbPossibilities+=4;
+                }
+                break;
+            }
+            case 'P':{
+                for(int j=0;j<2;j++){
+                    shapes[s]->flip();
+                    for(int i=0;i<4;i++){
+                        shapes[s]->rotate();
+                        availShape[nbPossibilities+i]=*shapes[s];
+                    }
+                    nbPossibilities+=4;
+                }
+                break;
+            }
+            case 'N':{
+                for(int j=0;j<2;j++){
+                    shapes[s]->flip();
+                    for(int i=0;i<4;i++){
+                        shapes[s]->rotate();
+                        availShape[nbPossibilities+i]=*shapes[s];
+                    }
+                    nbPossibilities+=4;
+                }
+                break;
+            }
+            case 'Y':{
+                for(int j=0;j<2;j++){
+                    shapes[s]->flip();
+                    for(int i=0;i<4;i++){
+                        shapes[s]->rotate();
+                        availShape[nbPossibilities+i]=*shapes[s];
+                    }
+                    nbPossibilities+=4;
+                }
+                break;
+            }
+        }
     }
 
-    nbLigne=nbL;
     nbPlacedShapes=0;
 
     for (int i=0;i<5;i++){//met tout a pas opti sauf les coter et met tout a "pas pris"
@@ -66,11 +162,16 @@ Tableau::Tableau(int nbL){
             }
         }
     }
+
+    for (int i=0;i<nbPossibilities;i++){
+        std::cout<<"id : "<<availShape[i].id<<" rotateState : "<<availShape[i].getRota()<<" flipped : "<<availShape[i].getFlip()<<std::endl;
+    }
+    std::cout<<"nbMade : "<<nbPossibilities<<std::endl;
 }
 
 Tableau::~Tableau(){
     for (int i=0;i<12;i++){
-        delete availShape[i];
+        delete shapes[i];
     }//on a pas besoin de faire la meme pour placedShapes car il pointeron vers les meme shape
 }
 
@@ -90,19 +191,27 @@ void Tableau::render(){
             if(tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, tab[i][j].color);//ceux qui sotn pris
             if(tab[i][j].opti==0 && !tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, WHITE);//ceux qui sont pas paris mais pas opti
             if(tab[i][j].opti>0 && !tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, GREEN);//ceux qui sotn pas pris et opti
+            char nbNear[1];
+            nbNear[0]=tab[i][j].opti+'0';
+            DrawText(nbNear, 300+i*cubeSize+10,disFromSide+j*cubeSize+10,20 , BLACK);
         }
     }
-    for (int i=nbPlacedShapes;i<nbLigne;i++){
-        availShape[i]->render();
+    bool placed=false;
+    for (int i=0;i<12;i++){
+        placed=false;
+        for(int j=0;j<nbPlacedShapes;j++){
+            if(shapes[i]->id==placedShapes[j].id) placed =true;
+        }
+        if(!placed)shapes[i]->render();
     }
     EndDrawing();
 }
 
 void Tableau::placeShape(int indiceS,int x,int y){
     for(int i=0;i<5;i++){
-        int posX=x+availShape[indiceS]->shape[i].posX;
-        int posY=y+availShape[indiceS]->shape[i].posY;
-        tab[posX][posY].color=availShape[indiceS]->shape[i].color; 
+        int posX=x+availShape[indiceS].shape[i].posX;
+        int posY=y+availShape[indiceS].shape[i].posY;
+        tab[posX][posY].color=availShape[indiceS].shape[i].color; 
         tab[posX][posY].take=true;
         for(int j=-1;j<2;j++){
             for(int k=-1;k<2;k++){
@@ -114,15 +223,41 @@ void Tableau::placeShape(int indiceS,int x,int y){
     }
     placedShapes[nbPlacedShapes].posX=x;
     placedShapes[nbPlacedShapes].posY=y;
+    placedShapes[nbPlacedShapes].id=availShape[indiceS].id;
+    if(placedShapes[nbPlacedShapes].id==availShape[indiceS].id){
+        placedShapes[nbPlacedShapes].nbCheck++;
+    }
+    else {placedShapes[nbPlacedShapes].nbCheck=0;}
     placedShapes[nbPlacedShapes].indiceDansTab=indiceS;
-    placedShapes[nbPlacedShapes].shape=*availShape[indiceS];
-    nbPlacedShapes++;
+    nbPlacedShapes++;    
+    if(nbPlacedShapes<12) {
+        placedShapes[nbPlacedShapes].id='O';
+        placedShapes[nbPlacedShapes].nbCheck=0;
+    }
 }
 
 bool Tableau::canPlace(int indiceS,int x,int y){
+    int posX,posY;
     for(int i=0;i<5;i++){
-        if(x+availShape[indiceS]->shape[i].posX<0 || x+availShape[indiceS]->shape[i].posX>5 || y+availShape[indiceS]->shape[i].posY<0 || y+availShape[indiceS]->shape[i].posY>nbLigne-1) return false;
-        if(tab[x+availShape[indiceS]->shape[i].posX][y+availShape[indiceS]->shape[i].posY].take) return false;
+        posX=x+availShape[indiceS].shape[i].posX;
+        posY=y+availShape[indiceS].shape[i].posY;
+        if(posX<0 || posX>4 || posY<0 || posY>nbLigne-1) return false;
+        if(tab[posX][posY].take) {
+            return false;
+        }
+        //std::cout<<"all good "<< i<<std::endl;
+    }
+    for(int i=0;i<nbPlacedShapes;i++){
+        if (placedShapes[i].id==availShape[indiceS].id) return false;
+        if (placedShapes[i].indiceDansTab==indiceS) return false;
+    }
+    if(placedShapes[nbPlacedShapes].nbCheck==4)return false;
+    return true;
+}
+
+bool Tableau::isNotPlaced(int indiceS){
+    for(int i=0;i<nbPlacedShapes;i++){
+        if (indiceS==placedShapes[i].indiceDansTab)return false;
     }
     return true;
 }
@@ -130,25 +265,21 @@ bool Tableau::canPlace(int indiceS,int x,int y){
 int Tableau::nbOpti(int indiceS,int x,int y){
     int nbOpti=0;
     for(int i=0;i<5;i++){
-        nbOpti+=tab[x+availShape[indiceS]->shape[i].posX][y+availShape[indiceS]->shape[i].posY].opti;
+        nbOpti+=tab[x+availShape[indiceS].shape[i].posX][y+availShape[indiceS].shape[i].posY].opti;
     }
     return nbOpti;
  }
 
 
-void Tableau::removeShape(int i){//a faire
-
+void Tableau::removeShape() {
 }
 
 void Tableau::algorythmeDePlacage(){
+    //std::cout<<nbPossibilities<<std::endl;
     while(!WindowShouldClose()){
-        while(!WindowShouldClose() && nbLigne!=nbPlacedShapes){
-            //ecrire la fonctione ici
-
-
-            //finir ici 
-            render();
-        }
+        //ecrire la fonctione ici
+        
+        //finir ici 
         render();
     }
 }

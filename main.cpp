@@ -30,4 +30,5 @@ int main(){
 
     
     tab.algorythmeDePlacage();
+    return 0;
 }
