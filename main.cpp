@@ -1,3 +1,4 @@
+//#include "include/raylib.h"
 #include "include/raylib.h"
 #include "tableau.h"
 
@@ -9,26 +10,9 @@
 //
 //
 int main(){
-    InitWindow(750, 1000, "tests");
-    SetTargetFPS(60);
-
-
-    Shape *shapes[12];
-    shapes[0]=new U;
-    shapes[1]=new P;
-    shapes[2]=new I;
-    shapes[3]=new L;
-    shapes[4]=new T;
-    shapes[5]=new V;
-    shapes[6]=new W;
-    shapes[7]=new X;
-    shapes[8]=new F;
-    shapes[9]=new Z;
-    shapes[10]=new Y;
-    shapes[11]=new N;
+    int calc=0;
     Tableau tab;
-
-    
+    InitWindow(750, 1000, "katamino");
     tab.algorythmeDePlacage();
     return 0;
 }

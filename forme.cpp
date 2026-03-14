@@ -112,6 +112,8 @@ void Shape::operator =(Shape s2){
 
     x=s2.x;
     y=s2.y;
+    rotateState=s2.rotateState;
+    fliped=s2.fliped;
     cubeSize=s2.cubeSize;
 }
 
@@ -632,7 +634,7 @@ void Z::move(){
 Y::Y(){
     id='Y';
     for (int i=0;i<5;i++){
-        shape[i].color=SKYBLUE;
+        shape[i].color=GREEN;
         shape[i].opti=0;
         shape[i].take=true;
     }
