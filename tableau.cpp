@@ -275,11 +275,61 @@ int Tableau::nbOpti(int indiceS,int x,int y){
  
 
 void Tableau::removeShape() {
-    
+    int x, y, indiceS;
+    nbPlacedShapes --;
+    //on récupère la pièce précédement placé
+    indiceS = placedShapes[nbPlacedShapes].indiceDansTab;
+    y = placedShapes[nbPlacedShapes].posY;
+    x = placedShapes[nbPlacedShapes].posX;
+    //et on l'enlève de la grille (en diminuant l'opti des cases qui étaient adjacentes à la pièce enlevé)
+    for(int i=0;i<5;i++){
+        int posX=x+availShape[indiceS].shape[i].posX;
+        int posY=y+availShape[indiceS].shape[i].posY;
+        for(int j=-1;j<2;j++){
+            for(int k=-1;k<2;k++){
+                if(j*j!=k*k && posX+j>=0 && posX+j<5 && posY+k>=0 && posY+k<nbLigne){
+                    tab[posX+j][posY+k].opti--;
+                }
+            }
+        }
+        tab[posX][posY].color=WHITE; 
+        tab[posX][posY].take=false;
+    }
 }
 
 int Tableau::algorythmeDePlacage(){
     while(!WindowShouldClose()){
+    //std::cout<<nbPossibilities<<std::endl;
+        //ecrire la fonctione ici
+        int optiMax = 0;
+        int optiMaxInd = -1; /// -1 = cas d'erreur, le programme n'a réussi à placer aucune des pièces dans availShape
+        int optiMaxX;
+        int optiMaxY;
+        int opti;
+        for (int i = 0; i<63; i++ ){
+            for (int x = 0; x < 5; x++ ){
+                for (int y = 0; y < nbLigne; y++){
+                    if (canPlace(i, x, y)){
+                        if ((opti = nbOpti(i, x, y)) > optiMax){
+                            optiMax = opti;
+                            optiMaxInd = i;
+                            optiMaxX = x;
+                            optiMaxY = y;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (optiMaxInd == -1){
+            ///le cas où il faudra enlever la pièce précédement placé
+            removeShape(); 
+        }else{
+            placeShape(optiMaxInd, optiMaxX, optiMaxY );
+
+        }
+
+        //finir ici 
         render();
-    }return 0;
+    }
 }
