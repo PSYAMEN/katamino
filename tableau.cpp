@@ -163,7 +163,7 @@ Tableau::Tableau(int nbL){
             }
         }
     }
-    turn=0;
+    //turn=0;
     for (int i=0;i<nbPossibilities;i++){
         std::cout<<"id : "<<availShape[i].id<<" rotateState : "<<availShape[i].getRota()<<" flipped : "<<availShape[i].getFlip()<<std::endl;
     }
@@ -190,8 +190,8 @@ void Tableau::render(){
     for(int i=0;i<5;i++){
         for(int j=0;j<nbLigne;j++){
             if(tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, tab[i][j].color);//ceux qui sotn pris
-            if(tab[i][j].opti==0 && !tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, WHITE);//ceux qui sont pas paris mais pas opti
-            if(tab[i][j].opti>0 && !tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, GRAY);//ceux qui sotn pas pris et opti
+            if(!tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, GRAY);//ceux qui sont pas paris mais pas opti
+            //if(tab[i][j].opti>0 && !tab[i][j].take) DrawRectangle(300+i*cubeSize,disFromSide+j*cubeSize,  cubeSize-1, cubeSize-1, GREEN);//ceux qui sotn pas pris et opti
             char nbNear[1];
             nbNear[0]=tab[i][j].opti+'0';
             DrawText(nbNear, 300+i*cubeSize+10,disFromSide+j*cubeSize+10,20 , BLACK);
@@ -226,19 +226,19 @@ void Tableau::placeShape(int indiceS,int x,int y){
     placedShapes[nbPlacedShapes].posY=y;
     placedShapes[nbPlacedShapes].id=availShape[indiceS].id;
     placedShapes[nbPlacedShapes].indiceDansTab=indiceS;
-    nbPlacedShapes++;
 
 
-    notAllowed[turn][nbNotAllowed[turn]].flip=availShape[indiceS].getFlip();
-    notAllowed[turn][nbNotAllowed[turn]].rota=availShape[indiceS].getRota();
-    notAllowed[turn][nbNotAllowed[turn]].id=availShape[indiceS].id;
-    notAllowed[turn][nbNotAllowed[turn]].posX=x;
-    notAllowed[turn][nbNotAllowed[turn]].posY=y;
+    notAllowed[nbPlacedShapes][nbNotAllowed[nbPlacedShapes]].flip=availShape[indiceS].getFlip();
+    notAllowed[nbPlacedShapes][nbNotAllowed[nbPlacedShapes]].rota=availShape[indiceS].getRota();
+    notAllowed[nbPlacedShapes][nbNotAllowed[nbPlacedShapes]].id=availShape[indiceS].id;
+    notAllowed[nbPlacedShapes][nbNotAllowed[nbPlacedShapes]].posX=x;
+    notAllowed[nbPlacedShapes][nbNotAllowed[nbPlacedShapes]].posY=y;
     //std::cout<<"banned Shape "<<indiceS<<" at "<<x<<' '<<y<<" on turn : "<<turn<<std::endl;
     
-    nbNotAllowed[turn]++;
+    nbNotAllowed[nbPlacedShapes]++;
+    nbPlacedShapes++;
 
-    turn++;
+    //turn++;
     //on pose une forme donc on reset la prochaine
 }
 
@@ -258,9 +258,9 @@ bool Tableau::canPlace(int indiceS,int x,int y){
         if (placedShapes[i].indiceDansTab==indiceS) return false;
     }
     //std::cout<<"test for "<<availShape[indiceS].id<<" at : "<<x<<' '<<y<<std::endl;
-    for(int j=0;j<nbNotAllowed[turn];j++){
+    for(int j=0;j<nbNotAllowed[nbPlacedShapes];j++){
         //std::cout<<notAllowed[turn][j].id<<" at : "<<notAllowed[turn][j].posX<<' '<<notAllowed[turn][j].posY<<" is not allowed on turn : "<<turn<<std::endl;
-        if(notAllowed[turn][j].rota==availShape[indiceS].getRota() && notAllowed[turn][j].id==availShape[indiceS].id && notAllowed[turn][j].flip==availShape[indiceS].getFlip() && notAllowed[turn][j].posX==x &&  notAllowed[turn][j].posY==y){return false;}
+        if(notAllowed[nbPlacedShapes][j].rota==availShape[indiceS].getRota() && notAllowed[nbPlacedShapes][j].id==availShape[indiceS].id && notAllowed[nbPlacedShapes][j].flip==availShape[indiceS].getFlip() && notAllowed[nbPlacedShapes][j].posX==x &&  notAllowed[nbPlacedShapes][j].posY==y){return false;}
     }
     return true;
 }
@@ -272,7 +272,7 @@ int Tableau::nbOpti(int indiceS,int x,int y){
     }
     return nbOpti;
  }
-
+ 
 
 void Tableau::removeShape() {
     

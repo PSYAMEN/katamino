@@ -17,7 +17,6 @@ struct saveState{
     int posX=-1,posY=-1;
     char id='O';
     int rota=0;
-    int turn=0;
     bool flip=false;
 };
 class Tableau{
@@ -30,7 +29,6 @@ private:
     SavePlacement placedShapes[12];//pas un pointeur come on prend une copie parce que si c'est des pointeur on peu pas le comparer a ceux dans availShapes
     int nbPlacedShapes;//le nombre de formes placer(fini le prog si )
     saveState notAllowed[12][63*12*5];
-    int turn;
     int nbNotAllowed[12];//donne aussi en qq sorte la prochiane shape a placer
 public:
     Tableau(int nbL=12);//shuffel et met de maniere aleatoir les shape dans availShapes pour pas toujour avoir les meme si le tableau est pas entier (comme chaque shape fait 5 case il y a nbL shape dans le tableau de disponible)
