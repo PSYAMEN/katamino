@@ -22,7 +22,7 @@ Tableau::Tableau(int nbL){
     for (int i=0;i<12;i++){//on fait un tableau de shape aleatoire 
         Shape* temp=shapes[i];
         int r=rand()%(12-i)+i;
-        shapes[i]=shapes[r];
+        shapes[i]=shapes[r] ;
         shapes[r]=temp;
     }
     nbLigne=nbL;
