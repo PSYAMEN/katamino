@@ -276,6 +276,7 @@ int Tableau::nbOpti(int indiceS,int x,int y){
 
 void Tableau::removeShape() {
     int x, y, indiceS;
+    nbNotAllowed[nbPlacedShapes] = 0;
     nbPlacedShapes --;
     //on récupère la pièce précédement placé
     indiceS = placedShapes[nbPlacedShapes].indiceDansTab;
@@ -298,38 +299,58 @@ void Tableau::removeShape() {
 }
 
 int Tableau::algorythmeDePlacage(){
-    while(!WindowShouldClose()){
-    //std::cout<<nbPossibilities<<std::endl;
-        //ecrire la fonctione ici
-        int optiMax = 0;
-        int optiMaxInd = -1; /// -1 = cas d'erreur, le programme n'a réussi à placer aucune des pièces dans availShape
-        int optiMaxX;
-        int optiMaxY;
-        int opti;
-        for (int i = 0; i<63; i++ ){
-            for (int x = 0; x < 5; x++ ){
-                for (int y = 0; y < nbLigne; y++){
-                    if (canPlace(i, x, y)){
-                        if ((opti = nbOpti(i, x, y)) > optiMax){
-                            optiMax = opti;
-                            optiMaxInd = i;
-                            optiMaxX = x;
-                            optiMaxY = y;
+    int iter = 0;
+    int optiMax;
+    int optiMaxInd; 
+    int optiMaxX;
+    int optiMaxY;
+    int opti;
+    bool isDone=false;
+    while (!WindowShouldClose())
+    {
+        
+        while(!WindowShouldClose() && (nbPlacedShapes != nbLigne)){
+        //std::cout<<nbPossibilities<<std::endl;
+            //ecrire la fonctione ici
+            iter ++;
+            optiMax = 0;
+            optiMaxInd = -1; /// -1 = cas d'erreur, le programme n'a réussi à placer aucune des pièces dans availShape
+            optiMaxX;
+            optiMaxY;
+            opti;
+
+            for (int i = 0; i<63; i++ ){
+                for (int x = 0; x < 5; x++ ){
+                    for (int y = 0; y < nbLigne; y++){
+                        if (canPlace(i, x, y)){
+                            if ((opti = nbOpti(i, x, y)) > optiMax){
+                                optiMax = opti;
+                                optiMaxInd = i;
+                                optiMaxX = x;
+                                optiMaxY = y;
+                            }
                         }
                     }
                 }
             }
+
+            if (optiMaxInd == -1){
+                ///le cas où il faudra enlever la pièce précédement placé
+                removeShape(); 
+            }else{
+                placeShape(optiMaxInd, optiMaxX, optiMaxY );
+
+            }
+
+            if (iter%50000 == 0){
+                render();
+            }
         }
-
-        if (optiMaxInd == -1){
-            ///le cas où il faudra enlever la pièce précédement placé
-            removeShape(); 
-        }else{
-            placeShape(optiMaxInd, optiMaxX, optiMaxY );
-
+        if(!isDone){
+            std::cout<<"done in "<<iter<<" iteration"<<std::endl;
+            isDone=true;
         }
-
-        //finir ici 
         render();
+
     }
-}
+}   

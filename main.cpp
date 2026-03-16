@@ -11,7 +11,7 @@
 //
 int main(){
     int calc=0;
-    Tableau tab;
+    Tableau tab(12);
     InitWindow(750, 1000, "katamino");
     tab.algorythmeDePlacage();
     return 0;
