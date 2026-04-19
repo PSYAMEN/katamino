@@ -340,6 +340,9 @@ int Tableau::algorythmeDePlacage(){
             }else{
                 placeShape(optiMaxInd, optiMaxX, optiMaxY );
 
+                if (hasIsolatedRegion(optiMaxInd, optiMaxX, optiMaxY )){
+                    removeShape();// on retire la case qu'on vient de mettre si elle génère des vides pas comblable
+                }
             }
 
             if (iter%50000 == 0){
@@ -354,3 +357,44 @@ int Tableau::algorythmeDePlacage(){
 
     }
 }   
+
+bool Tableau::hasIsolatedRegion(int indiceS, int x, int y){
+    bool visited[5][nbLigne] = {}; // tableau des cases déjà visités (pour éviter trop de complexité)
+    for (int i = 0; i < 5; i++){ // on ne regarde que les voisins directs de la pièce qu'on vient de poser
+        int px = x + availShape[indiceS].shape[i].posX;
+        int py = y + availShape[indiceS].shape[i].posY;
+
+        int di[] = {-1,1,0,0}; //directions possibles en i et j
+        int dj[] = {0,0,-1,1};
+        for (int d = 0; d < 4; d++) {
+            int ni = px + di[d];
+            int nj = py + dj[d];
+            // si le voisin est vide et pas encore testé
+            if (ni>=0 && ni<5 && nj>=0 && nj<nbLigne && !tab[ni][nj].take && !visited[ni][nj]){
+                // parcours en largeur graph depuis ce voisin (pile)
+                int queue[25][2];
+                int head = 0, tail = 0;
+                queue[tail][0] = ni; queue[tail][1] = nj; tail++;
+                visited[ni][nj] = true;
+                int count = 0;
+                while (head < tail) {
+                    int ci = queue[head][0], cj = queue[head][1]; head++;
+                    count++;
+
+                    if (count == 5) break; // si l'espace vide est de taille 5, c ok
+
+                    for (int d2 = 0; d2 < 4; d2++){
+                        int mi = ci + di[d2];
+                        int mj = cj + dj[d2];
+                        if (mi>=0 && mi<5 && mj>=0 && mj<nbLigne && !tab[mi][mj].take && !visited[mi][mj]){
+                            visited[mi][mj] = true;
+                            queue[tail][0] = mi; queue[tail][1] = mj; tail++;
+                        }
+                    }
+                }
+                if (count < 5) return true; //si après avoir tous parcourus, l'espace es tde taille inf à 5, true
+            }
+        }
+    }
+    return false; //sinon, si aucun cas est problématique, false
+}
