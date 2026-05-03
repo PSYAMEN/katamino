@@ -13,6 +13,6 @@ int main(){
     int calc=0;
     Tableau tab(12);
     InitWindow(750, 1000, "katamino");
-    tab.algorythmeDePlacage();
+    tab.algorythmeDePlacageOpti();
     return 0;
 }

@@ -42,5 +42,9 @@ public:
     void removeShape();//on enleve le dernier element de placed shape et on desincrement le nbPlacedShape
     int algorythmeDePlacage();//on recupere le position optimale de chaque forme et le nombre de cas e elle on a coter puis on place la plus optimal(rotation inclus)(celle qui es a coter du plus grand nombre de cases) jusqua que l on puisse plus puis si le tableau pas rempli on nelve la derniere placer et on reregarde pour elle si elle peut etre placer differament et ainsi de suite en gros le main (il appel aussi render)
     //la condition de fin est qqch du genre nbPlacedShape!=nbLigne
-    bool hasIsolatedRegion(int indiceS, int x, int y); // true si il y a un espace vide de moins de 5 cases à coté d'une pièce
+    
+    //optimisations:
+    bool hasIsolatedRegion(int indiceS, int x, int y)const; // true si il y a un espace vide de moins de 5 cases à coté d'une pièce
+    bool mostConstrained(int &bestX, int &bestY); // on cherche la case la plus contrainte
+    int algorythmeDePlacageOpti();//algorithme qui utilise les optimisations
 };
