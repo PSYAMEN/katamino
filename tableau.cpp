@@ -359,7 +359,7 @@ int Tableau::algorythmeDePlacage(){
 }   
 
 bool Tableau::hasIsolatedRegion(int indiceS, int x, int y){
-    bool visited[5][nbLigne] = {}; // tableau des cases déjà visités (pour éviter trop de complexité)
+    bool visited [5][nbLigne] = {}; // tableau des cases déjà visités (pour éviter trop de complexité)
     for (int i = 0; i < 5; i++){ // on ne regarde que les voisins directs de la pièce qu'on vient de poser
         int px = x + availShape[indiceS].shape[i].posX;
         int py = y + availShape[indiceS].shape[i].posY;
