@@ -339,10 +339,6 @@ int Tableau::algorythmeDePlacage(){
                 removeShape(); 
             }else{
                 placeShape(optiMaxInd, optiMaxX, optiMaxY );
-
-                if (hasIsolatedRegion(optiMaxInd, optiMaxX, optiMaxY )){
-                    removeShape();// on retire la case qu'on vient de mettre si elle génère des vides pas comblable
-                }
             }
 
             if (iter%50000 == 0){
@@ -371,8 +367,8 @@ bool Tableau::hasIsolatedRegion(int indiceS, int x, int y){
             int nj = py + dj[d];
             // si le voisin est vide et pas encore testé
             if (ni>=0 && ni<5 && nj>=0 && nj<nbLigne && !tab[ni][nj].take && !visited[ni][nj]){
-                // parcours en largeur graph depuis ce voisin (pile)
-                int queue[25][2];
+                // parcours en largeur graph depuis ce voisin (file)
+                int queue[nbLigne*5][2];
                 int head = 0, tail = 0;
                 queue[tail][0] = ni; queue[tail][1] = nj; tail++;
                 visited[ni][nj] = true;
@@ -381,9 +377,7 @@ bool Tableau::hasIsolatedRegion(int indiceS, int x, int y){
                     int ci = queue[head][0], cj = queue[head][1]; head++;
                     count++;
 
-                    if (count == 5) break; // si l'espace vide est de taille 5, c ok
-
-                    for (int d2 = 0; d2 < 4; d2++){
+                    for (int d2 = 0; d2 < 4; d2++){ //on cherche les voidins à enfiler de chaque case défilé
                         int mi = ci + di[d2];
                         int mj = cj + dj[d2];
                         if (mi>=0 && mi<5 && mj>=0 && mj<nbLigne && !tab[mi][mj].take && !visited[mi][mj]){
@@ -392,9 +386,109 @@ bool Tableau::hasIsolatedRegion(int indiceS, int x, int y){
                         }
                     }
                 }
-                if (count < 5) return true; //si après avoir tous parcourus, l'espace es tde taille inf à 5, true
+                if (count % 5 != 0) return true; //si après avoir tous parcourus, l'espace n'est pas de taille modulo 5, true
             }
         }
     }
     return false; //sinon, si aucun cas est problématique, false
 }
+
+bool Tableau::mostConstrained(int &bestX,int &bestY){ // on cherche la case la plus contrainte
+    int minOption = 2147483647;
+    bestX = -1;bestY = -1;
+
+    for(int x=0; x<5; x++){ // parcours des cases du tableau
+        for(int y=0; y<nbLigne; y++){
+
+            if(tab[x][y].take)continue; // exclus les cases prises
+            int option = 0;
+
+            for(int i=0; i<nbPossibilities; i++){ // parcours de availShape
+                for(int c=0; c<5; c++){ // parcours des cases d'une piece 
+
+                    int aX = x - availShape[i].shape[c].posX;
+                    int aY = y - availShape[i].shape[c].posY;
+                    //std::cout << "mostConstrained canPlace: i=" << i << " aX=" << aX << " aY=" << aY << std::endl;
+                    if (canPlace(i, aX, aY))option++;
+                }
+            }
+            if(option==0)return true; // il existe une case sans possibilités => backtrack
+
+            if(option < minOption){
+                minOption = option;
+                bestX = x;
+                bestY = y;
+            }
+        }
+    }
+    return false; // il n'y a pas de case sans possibilité
+}
+
+int Tableau::algorythmeDePlacageOpti(){
+    int iter = 0;
+    int optiMax;
+    int optiMaxInd; 
+    int optiMaxX;
+    int optiMaxY;
+    bool isDone=false;
+    while (!WindowShouldClose())
+    {
+        
+        while(!WindowShouldClose() && (nbPlacedShapes != nbLigne)){
+        //std::cout<<nbPossibilities<<std::endl;
+            iter ++;
+            optiMax = 0;
+            optiMaxInd = -1; /// -1 = cas d'erreur, le programme n'a réussi à placer aucune des pièces dans availShape
+
+            // on cherche la case la plus contrainte
+
+            int bestX, bestY;
+            if(mostConstrained(bestX, bestY)){ 
+                removeShape(); // backtrack si une case n'a pas d'option
+            }else {
+                for(int i=0; i<nbPossibilities; i++){ // parcours de availShape
+                    for(int c=0; c<5; c++){ // parcours des cases d'une piece 
+
+                        int aX = bestX - availShape[i].shape[c].posX;
+                        int aY = bestY - availShape[i].shape[c].posY;
+
+                        if (canPlace(i, aX, aY)){
+                            int o = nbOpti(i, aX, aY);
+                            if(o > optiMax){
+                                optiMax = o;
+                                optiMaxInd = i;
+                                optiMaxX = aX;
+                                optiMaxY = aY;
+                            }
+                        }
+                    }
+                }
+                if (optiMaxInd == -1){
+                    if(nbPlacedShapes == 0){
+                        //std::cout << "ERREUR : backtrack sur grille vide, impossible" << std::endl;
+                        return -1;
+                    }
+                    ///le cas où il faudra enlever la pièce précédement placé
+                    removeShape(); 
+                }else{
+                    //std::cout << "placeShape: i=" << optiMaxInd << " x=" << optiMaxX << " y=" << optiMaxY << std::endl;
+                    placeShape(optiMaxInd, optiMaxX, optiMaxY );
+                    if (hasIsolatedRegion(optiMaxInd, optiMaxX, optiMaxY )){
+                        removeShape();// on retire la case qu'on vient de mettre si elle génère des vides pas comblable
+                    }
+                }
+            }
+            
+            if (iter%500 == 0){
+                render();
+            }
+        }
+        if(!isDone){
+            std::cout<<"done in "<<iter<<" iteration"<<std::endl;
+            isDone=true;
+        }
+        render();
+
+    }
+    return 0;
+}   
