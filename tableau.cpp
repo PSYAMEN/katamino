@@ -473,9 +473,9 @@ int Tableau::algorythmeDePlacageOpti(){
                 }else{
                     //std::cout << "placeShape: i=" << optiMaxInd << " x=" << optiMaxX << " y=" << optiMaxY << std::endl;
                     placeShape(optiMaxInd, optiMaxX, optiMaxY );
-                    if (hasIsolatedRegion(optiMaxInd, optiMaxX, optiMaxY )){
-                        removeShape();// on retire la case qu'on vient de mettre si elle génère des vides pas comblable
-                    }
+                    //if (hasIsolatedRegion(optiMaxInd, optiMaxX, optiMaxY )){
+                    //    removeShape();// on retire la case qu'on vient de mettre si elle génère des vides pas comblable
+                    //}
                 }
             }
             
