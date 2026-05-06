@@ -2,5 +2,5 @@
 
 for i in $(seq 3 12);
 do
-    ./katamino $i
+    ./katamino $i &
 done
