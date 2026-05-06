@@ -12,6 +12,7 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
+    srand(time(NULL));
 
     if (argc < 2) {
         cout << "Usage: ./program k" << endl;
