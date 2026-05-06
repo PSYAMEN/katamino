@@ -34,7 +34,7 @@ public:
     Tableau(int nbL=12);//shuffel et met de maniere aleatoir les shape dans availShapes pour pas toujour avoir les meme si le tableau est pas entier (comme chaque shape fait 5 case il y a nbL shape dans le tableau de disponible)
     ~Tableau();
     void render();//affiche avec raylib (en vert c'est les case opti en blac celle qui ne sont pas placer) ceux qui sont placer sont de leur couleur
-    bool canPlace(int indiceS,int x,int y);//on prend une forme et on verifie que elle ets pas sur une autre en fonctione de x et y(sa position) faudra aussi faire gaffe a pas faire des check en dehors du tableau!!! sinon seg fault (tu fait just in if(x+shape.cell[i]>0 && x+shape.cell[i]<12))
+    bool canPlace(int indiceS,int x,int y,char * allowed);//on prend une forme et on verifie que elle ets pas sur une autre en fonctione de x et y(sa position) faudra aussi faire gaffe a pas faire des check en dehors du tableau!!! sinon seg fault (tu fait just in if(x+shape.cell[i]>0 && x+shape.cell[i]<12))
     //bool isNotPlaced(int indiceS);
     int nbOpti(int indiceS,int x,int y);//on renvoie le nombre de case sur laquel elle est a coter (diagonale compris normalement)
     void placeShape(int indiceS,int x,int y);//on pose la forme du tableau on recolaps aussi le tableau de shape deriere (on utilisera toujour la shapes[0] comme prochain placement )
@@ -45,6 +45,6 @@ public:
     
     //optimisations:
     bool hasIsolatedRegion(int indiceS, int x, int y)const; // true si il y a un espace vide de moins de 5 cases à coté d'une pièce
-    bool mostConstrained(int &bestX, int &bestY); // on cherche la case la plus contrainte
-    int algorythmeDePlacageOpti();//algorithme qui utilise les optimisations
+    bool mostConstrained(int &bestX, int &bestY,char * allowed); // on cherche la case la plus contrainte
+    int algorythmeDePlacageOpti(char * allowed);//algorithme qui utilise les optimisations
 };

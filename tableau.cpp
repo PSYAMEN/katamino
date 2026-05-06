@@ -164,10 +164,10 @@ Tableau::Tableau(int nbL){
         }
     }
     //turn=0;
-    for (int i=0;i<nbPossibilities;i++){
-        std::cout<<"id : "<<availShape[i].id<<" rotateState : "<<availShape[i].getRota()<<" flipped : "<<availShape[i].getFlip()<<std::endl;
-    }
-    std::cout<<"nbMade : "<<nbPossibilities<<std::endl;
+    //for (int i=0;i<nbPossibilities;i++){
+    //    std::cout<<"id : "<<availShape[i].id<<" rotateState : "<<availShape[i].getRota()<<" flipped : "<<availShape[i].getFlip()<<std::endl;
+    //}
+    //std::cout<<"nbMade : "<<nbPossibilities<<std::endl;
 }
 
 Tableau::~Tableau(){
@@ -242,8 +242,13 @@ void Tableau::placeShape(int indiceS,int x,int y){
     //on pose une forme donc on reset la prochaine
 }
 
-bool Tableau::canPlace(int indiceS,int x,int y){
+bool Tableau::canPlace(int indiceS,int x,int y,char allowed[12]){
     int posX,posY;
+    bool allGood=false;
+    for (int i=0;i<nbLigne;i++){
+        if(availShape[indiceS].id==allowed[i])allGood=true;
+    }
+    if(!allGood)return false;
     for(int i=0;i<5;i++){
         posX=x+availShape[indiceS].shape[i].posX;
         posY=y+availShape[indiceS].shape[i].posY;
@@ -306,6 +311,7 @@ int Tableau::algorythmeDePlacage(){
     int optiMaxY;
     int opti;
     bool isDone=false;
+    char allowed[12]={'U','P','I','L','T','V','W','X','Z','F','Y','N'};
     while (!WindowShouldClose())
     {
         
@@ -322,7 +328,7 @@ int Tableau::algorythmeDePlacage(){
             for (int i = 0; i<63; i++ ){
                 for (int x = 0; x < 5; x++ ){
                     for (int y = 0; y < nbLigne; y++){
-                        if (canPlace(i, x, y)){
+                        if (canPlace(i, x, y, allowed)){
                             if ((opti = nbOpti(i, x, y)) > optiMax){
                                 optiMax = opti;
                                 optiMaxInd = i;
@@ -355,7 +361,7 @@ int Tableau::algorythmeDePlacage(){
 }   
 
 bool Tableau::hasIsolatedRegion(int indiceS, int x, int y) const {
-    bool visited [5][nbLigne] = {}; // tableau des cases déjà visités (pour éviter trop de complexité)
+    bool visited [5][nbLigne]; // tableau des cases déjà visités (pour éviter trop de complexité)
     for (int i = 0; i < 5; i++){ // on ne regarde que les voisins directs de la pièce qu'on vient de poser
         int px = x + availShape[indiceS].shape[i].posX;
         int py = y + availShape[indiceS].shape[i].posY;
@@ -393,7 +399,7 @@ bool Tableau::hasIsolatedRegion(int indiceS, int x, int y) const {
     return false; //sinon, si aucun cas est problématique, false
 }
 
-bool Tableau::mostConstrained(int &bestX,int &bestY){ // on cherche la case la plus contrainte
+bool Tableau::mostConstrained(int &bestX,int &bestY,char* allowed){ // on cherche la case la plus contrainte
     int minOption = 2147483647;
     bestX = -1;bestY = -1;
 
@@ -409,7 +415,7 @@ bool Tableau::mostConstrained(int &bestX,int &bestY){ // on cherche la case la p
                     int aX = x - availShape[i].shape[c].posX;
                     int aY = y - availShape[i].shape[c].posY;
                     //std::cout << "mostConstrained canPlace: i=" << i << " aX=" << aX << " aY=" << aY << std::endl;
-                    if (canPlace(i, aX, aY))option++;
+                    if (canPlace(i, aX, aY,allowed))option++;
                 }
             }
             if(option==0)return true; // il existe une case sans possibilités => backtrack
@@ -424,7 +430,7 @@ bool Tableau::mostConstrained(int &bestX,int &bestY){ // on cherche la case la p
     return false; // il n'y a pas de case sans possibilité
 }
 
-int Tableau::algorythmeDePlacageOpti(){
+int Tableau::algorythmeDePlacageOpti(char* allowed){
     int iter = 0;
     int optiMax;
     int optiMaxInd; 
@@ -443,22 +449,24 @@ int Tableau::algorythmeDePlacageOpti(){
             // on cherche la case la plus contrainte
 
             int bestX, bestY;
-            if(mostConstrained(bestX, bestY)){ 
+            if(mostConstrained(bestX, bestY,allowed) && nbPlacedShapes>0){ 
                 removeShape(); // backtrack si une case n'a pas d'option
             }else {
-                for(int i=0; i<nbPossibilities; i++){ // parcours de availShape
-                    for(int c=0; c<5; c++){ // parcours des cases d'une piece 
+                if(bestX!=-1 && bestY!=-1){
+                    for(int i=0; i<nbPossibilities; i++){ // parcours de availShape
+                        for(int c=0; c<5; c++){ // parcours des cases d'une piece 
 
-                        int aX = bestX - availShape[i].shape[c].posX;
-                        int aY = bestY - availShape[i].shape[c].posY;
+                            int aX = bestX - availShape[i].shape[c].posX;
+                            int aY = bestY - availShape[i].shape[c].posY;
 
-                        if (canPlace(i, aX, aY)){
-                            int o = nbOpti(i, aX, aY);
-                            if(o > optiMax){
-                                optiMax = o;
-                                optiMaxInd = i;
-                                optiMaxX = aX;
-                                optiMaxY = aY;
+                            if (canPlace(i, aX, aY, allowed)){
+                                int o = nbOpti(i, aX, aY);
+                                if(o > optiMax){
+                                    optiMax = o;
+                                    optiMaxInd = i;
+                                    optiMaxX = aX;
+                                    optiMaxY = aY;
+                                }
                             }
                         }
                     }
@@ -473,9 +481,9 @@ int Tableau::algorythmeDePlacageOpti(){
                 }else{
                     //std::cout << "placeShape: i=" << optiMaxInd << " x=" << optiMaxX << " y=" << optiMaxY << std::endl;
                     placeShape(optiMaxInd, optiMaxX, optiMaxY );
-                    //if (hasIsolatedRegion(optiMaxInd, optiMaxX, optiMaxY )){
-                    //    removeShape();// on retire la case qu'on vient de mettre si elle génère des vides pas comblable
-                    //}
+                    if (hasIsolatedRegion(optiMaxInd, optiMaxX, optiMaxY )){
+                        removeShape();// on retire la case qu'on vient de mettre si elle génère des vides pas comblable
+                    }
                 }
             }
             
@@ -483,11 +491,24 @@ int Tableau::algorythmeDePlacageOpti(){
                 render();
             }
         }
-        if(!isDone){
-            std::cout<<"done in "<<iter<<" iteration"<<std::endl;
-            isDone=true;
-        }
+        std::cout<<"done in "<<iter<<" iteration"<<std::endl;
         render();
+        WaitTime(1);
+        render();
+        std::string name;
+        name.append("results/");
+        name.append(std::to_string(nbLigne));
+        name+='/';
+        for (int i=0;i<nbLigne;i++){
+            name+=allowed[i];
+        }
+        name=name+".png";
+        std::cout<<name<<std::endl;
+        TakeScreenshot(name.c_str());
+        render();
+        WaitTime(1);
+        return iter;
+        
 
     }
     return 0;

@@ -1,18 +1,58 @@
 //#include "include/raylib.h"
 #include "include/raylib.h"
 #include "tableau.h"
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <cstdlib>
 
-//ATENTION LE X ET Y A L AFFICHGE SONT INVERSER DONC LE X EST SUR LA VERTICALE ET LE Y SUR L HORISONTALE
-//DANS LE CODE X EST L HORIZITAL ET Y LA VERTICALE (x entre 0 et 5 et y entre 0 et nbLigne) DONC C NORMAL
-//
-//
-//
-//
-//
-int main(){
-    int calc=0;
-    Tableau tab(12);
+using namespace std;
+
+int main(int argc, char* argv[]) {
+
+    if (argc < 2) {
+        cout << "Usage: ./program k" << endl;
+        return 1;
+    }
+
+    int k = stoi(argv[1]);
+
+    vector<char> tab = {'U','P','I','L','T','V','W','X','Z','F','Y','N'};
+
     InitWindow(750, 1000, "katamino");
-    tab.algorythmeDePlacageOpti();
+
+    int n = tab.size();
+
+    for (int mask = 0; mask < (1 << n); mask++) {
+
+        if (__builtin_popcount(mask) == k) {
+
+            vector<char> allowed;
+
+            for (int i = 0; i < n; i++) {
+                if (mask & (1 << i)) {
+                    allowed.push_back(tab[i]);
+                }
+            }
+
+            // DEBUG print
+            for (char c : allowed)
+                cout << c;
+            cout << endl;
+
+            Tableau t(k);
+            char good[12];
+            for (int i=0;i<k;i++){
+                good[i]=allowed[i];
+            }
+            std::cout << "done in : "
+                      << t.algorythmeDePlacageOpti(good)
+                      << " iterations\n";
+        }
+    }
+
     return 0;
 }
