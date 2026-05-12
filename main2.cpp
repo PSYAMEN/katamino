@@ -13,12 +13,17 @@
 //
 int main(int argc, char* argv[]){
     srand(time(NULL));
+    InitWindow(750, 1000, "katamino");
     int nb=12;
     if(argc==2){
         nb = std::stoi(argv[1]);
     }
-    Tableau tab(nb);
-    InitWindow(750, 1000, "katamino");
-    tab.algorythmeDePlacageOpti();
+    long long int iterMoy=0;
+    for(int i=0;i<100;i++){
+        Tableau tab(nb);
+        iterMoy+=tab.algorythmeDePlacageOpti();
+        WaitTime(1);
+    }
+    std::cout<<"iteration moyen : "<<iterMoy/100<<std::endl;
     return 0;
 }

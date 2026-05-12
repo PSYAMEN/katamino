@@ -635,6 +635,7 @@ int Tableau::algorythmeDePlacageOpti(){
             isDone=true;
         }
         render();
+        return iter;
         
 
     }
