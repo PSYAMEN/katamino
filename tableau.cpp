@@ -301,40 +301,7 @@ int Tableau::nbOpti(int indiceS,int x,int y){
     return nbOpti;
  }
  
- int Tableau::getNbTakenAdj(int x,int y){
-    tab[x][y].checked=true;
-    int nbNotTaken=1;
-    if(x+1>=0 && x+1<5 && y>=0 && y<nbLigne ){
-        if(!tab[x+1][y].checked && !tab[x+1][y].take)nbNotTaken+=getNbTakenAdj(x+1, y);
-    } 
-    if(x-1>=0 && x-1<5 && y>=0 && y<nbLigne ){
-        if(!tab[x-1][y].checked && !tab[x-1][y].take) nbNotTaken+=getNbTakenAdj(x-1, y);
-    } 
-    if(x>=0 && x<5 && y+1>=0 && y+1<nbLigne ){
-        if(!tab[x][y+1].checked && !tab[x][y+1].take)nbNotTaken+=getNbTakenAdj(x, y+1);
-    } 
-    if(x>=0 && x<5 && y-1>=0 && y-1<nbLigne ){
-        if(!tab[x][y-1].checked && !tab[x][y-1].take)nbNotTaken+=getNbTakenAdj(x, y-1);
-    } 
-    return nbNotTaken;
-}
 
-bool Tableau::checkBlock(){
-    int good=true;
-    for (int i=0;i<5;i++){
-        for(int j=0;j<nbLigne;j++){
-            if(!tab[i][j].checked && !tab[i][j].take){
-                if(getNbTakenAdj(i, j)%5!=0) good=false;
-            }
-        }
-    }    
-    for (int i=0;i<5;i++){
-        for(int j=0;j<nbLigne;j++){
-            tab[i][j].checked=false;
-        }
-    }
-    return good;
-}
 
 
 void Tableau::removeShape() {
@@ -362,69 +329,6 @@ void Tableau::removeShape() {
     }
 }
 
-int Tableau::algorythmeDePlacageHotfix(){
-    //std::cout<<nbPossibilities<<std::endl;
-    //InitWindow(750, 1000, "katamino");
-    //InitAudioDevice();
-    //SetTargetFPS(60);
-    //Music music= LoadMusicStream("SHAW.mp3");
-    //SetMusicVolume(music,0.5);
-
-
-    int bestI=0;
-    int bestOpti=0;
-    int bestX=0;
-    int bestY=0;
-    bool canBePlaced=true;
-    long long int f=0;
-    bool shaw=false;
-    while(true){
-        while(nbLigne!=nbPlacedShapes){
-            //ecrire la fonctione ici
-            f++;
-            bestI=0;
-            bestOpti=3+nbPlacedShapes/4;
-            bestX=0;
-            bestY=0;
-            canBePlaced=false;
-            for(int s=0;s<nbPossibilities;s++){
-                for(int i=0;i<5;i++){
-                    for(int j=0;j<12;j++){
-                        if(canPlace(s, i, j) && nbOpti(s, i, j)>bestOpti){
-                            bestOpti=nbOpti(s, i, j);
-                            bestX=i;
-                            bestY=j;
-                            bestI=s;
-                            canBePlaced=true;
-                        }
-                    }
-                }
-            }
-            if(canBePlaced){
-                placeShape(bestI, bestX, bestY);
-                //std::cout<<"placed Shape "<<bestI<<" at "<<bestX<<' '<<bestY<<" on turn : "<<turn<<std::endl;
-                //WaitTime(0.5);
-                if(!checkBlock())removeShape();
-            }
-            if(!canBePlaced){
-                removeShape();
-            }
-            //if(f%500==0){
-            //    render();
-            //}
-            
-            //finir ici 
-        }
-        if(!shaw){
-            //PlayMusicStream(music);
-            shaw=!shaw;
-            std::cout<<"done in : "<<f<<"calculations\n";
-            return f;
-        }
-        //UpdateMusicStream(music);
-        //render();
-    }//return 0;
-}
 
 int Tableau::algorythmeDePlacage(){
     int iter = 0;
