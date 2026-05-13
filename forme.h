@@ -5,6 +5,7 @@ struct Cell{
     int posX,posY;
     bool take;
     int opti;
+    bool checked;
     Color color;
 };
 

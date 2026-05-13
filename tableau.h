@@ -51,4 +51,7 @@ public:
     bool mostConstrained(int &bestX, int &bestY); // on cherche la case la plus contrainte
     int algorythmeDePlacageOpti(char * allowed);//algorithme qui utilise les optimisations
     int algorythmeDePlacageOpti();//algorithme qui utilise les optimisations
+    bool checkBlock();
+    int getNbTakenAdj(int x,int y);
+    int algorythmeDePlacageHotfix();
 };
