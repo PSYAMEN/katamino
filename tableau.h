@@ -40,7 +40,6 @@ public:
     //bool isNotPlaced(int indiceS);
     int nbOpti(int indiceS,int x,int y);//on renvoie le nombre de case sur laquel elle est a coter (diagonale compris normalement)
     void placeShape(int indiceS,int x,int y);//on pose la forme du tableau on recolaps aussi le tableau de shape deriere (on utilisera toujour la shapes[0] comme prochain placement )
-    bool solve();
     void removeShape();//on enleve le dernier element de placed shape et on desincrement le nbPlacedShape
     int algorythmeDePlacage();//on recupere le position optimale de chaque forme et le nombre de cas e elle on a coter puis on place la plus optimal(rotation inclus)(celle qui es a coter du plus grand nombre de cases) jusqua que l on puisse plus puis si le tableau pas rempli on nelve la derniere placer et on reregarde pour elle si elle peut etre placer differament et ainsi de suite en gros le main (il appel aussi render)
     //la condition de fin est qqch du genre nbPlacedShape!=nbLigne
