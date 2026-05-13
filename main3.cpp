@@ -21,9 +21,9 @@ int main(int argc, char* argv[]){
     long long int iterMoy=0;
     for(int i=0;i<100;i++){
         Tableau tab(nb);
-        iterMoy+=tab.algorythmeDePlacageHotfix();
+        iterMoy+=tab.algorythmeDePlacageOpti();
         WaitTime(1);
     }
-    std::cout<<"iteration moyen : "<<iterMoy/100<<std::endl;
+    std::cout<<"iteration moyen pour "<<nb<<" ligne : "<<iterMoy/100<<std::endl;
     return 0;
 }

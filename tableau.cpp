@@ -341,6 +341,7 @@ void Tableau::removeShape() {
     int x, y, indiceS;
     nbNotAllowed[nbPlacedShapes] = 0;
     nbPlacedShapes --;
+
     //on récupère la pièce précédement placé
     indiceS = placedShapes[nbPlacedShapes].indiceDansTab;
     y = placedShapes[nbPlacedShapes].posY;
@@ -730,7 +731,7 @@ int Tableau::algorythmeDePlacageOpti(){
         }
         if(!isDone){
             
-            std::cout<<"done in "<<iter<<" iteration"<<std::endl;
+            //std::cout<<"done in "<<iter<<" iteration"<<std::endl;
             isDone=true;
         }
         render();
