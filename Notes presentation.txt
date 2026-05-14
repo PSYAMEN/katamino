@@ -1,0 +1,17 @@
+Into :
+-concepte du katamino et application irl / utilite de se que on a fait en gros (organiser des truc irl)
+-language / libs utilisee (raylib c++)
+-autre chose si vous avez des idee
+-critere optimisation(quand je retrouve le mot que je cherche je le met ici) en gros le truc de opti 
+
+1er partie : les utilitaires://Nicolas
+-Shapes (et vite fait rotate et flip)
+-utilite des differents truc dans tableasu (availShapes,placedShapes,notAllowed)
+-fonction utilitraires (nbOpti)//en 3 min pas le tps de sortire le place shape/remove shape + c pas les truc les plus important en sois (comme le render)
+
+2eme partie : l algorythme et les optimisations
+-explication de l'algorythme de base
+-explication des optimisation et comment elles sont utiliser / implementer dasn la lgorythme de base 
+
+Conclusion :
+-on a fait du bon taff on a repondu a la consigne et c'est asser propre (on a divers maniere d'executer le truc en fonction de se que on cherche)
