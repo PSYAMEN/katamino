@@ -14,6 +14,7 @@
 int main(int argc, char* argv[]){
     srand(time(NULL));
     InitWindow(750, 1000, "katamino");
+    SetTargetFPS(10);
     int nb=12;
     if(argc==2){
         nb = std::stoi(argv[1]);
