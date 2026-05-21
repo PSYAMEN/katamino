@@ -1,6 +1,6 @@
 #!/bin/bash
 
-for i in $(seq 3 12);
+for i in $(seq 4 12);
 do
-    ./katamino3 $i &
+    ./katamino2 $i &
 done

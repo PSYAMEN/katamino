@@ -245,7 +245,7 @@ void Tableau::placeShape(int indiceS,int x,int y){
 bool Tableau::canPlace(int indiceS,int x,int y,char allowed[12]){
     int posX,posY;
     bool allGood=false;
-    for (int i=0;i<nbLigne;i++){
+    for (int i=0;i<12;i++){
         if(availShape[indiceS].id==allowed[i])allGood=true;
     }
     if(!allGood)return false;
@@ -330,8 +330,8 @@ void Tableau::removeShape() {
 }
 
 
-int Tableau::algorythmeDePlacage(){
-    int iter = 0;
+long long int Tableau::algorythmeDePlacage(){
+    long long int iter = 0;
     int optiMax;
     int optiMaxInd; 
     int optiMaxX;
@@ -355,7 +355,7 @@ int Tableau::algorythmeDePlacage(){
             for (int i = 0; i<63; i++ ){
                 for (int x = 0; x < 5; x++ ){
                     for (int y = 0; y < nbLigne; y++){
-                        if (canPlace(i, x, y, allowed)){
+                        if (canPlace(i, x, y)){
                             if ((opti = nbOpti(i, x, y)) > optiMax){
                                 optiMax = opti;
                                 optiMaxInd = i;
@@ -374,13 +374,14 @@ int Tableau::algorythmeDePlacage(){
                 placeShape(optiMaxInd, optiMaxX, optiMaxY );
             }
 
-            if (iter%50000 == 0){
+            if (iter%500000 == 0){
                 render();
             }
         }
         if(!isDone){
-            std::cout<<"done in "<<iter<<" iteration"<<std::endl;
+            //std::cout<<"done in "<<iter<<" iteration"<<std::endl;
             isDone=true;
+            return iter;
         }
         render();
 
@@ -579,6 +580,7 @@ int Tableau::algorythmeDePlacageOpti(){
     int optiMaxX;
     int optiMaxY;
     bool isDone=false;
+    SetTargetFPS(60);
     while (!WindowShouldClose())
     {
         
@@ -635,7 +637,7 @@ int Tableau::algorythmeDePlacageOpti(){
         }
         if(!isDone){
             
-            //std::cout<<"done in "<<iter<<" iteration"<<std::endl;
+            std::cout<<"done in "<<iter<<" iteration"<<std::endl;
             isDone=true;
         }
         render();

@@ -20,11 +20,11 @@ int main(int argc, char* argv[]){
         nb = std::stoi(argv[1]);
     }
     long long int iterMoy=0;
-    for(int i=0;i<100;i++){
+    for(int i=0;i<10;i++){
         Tableau tab(nb);
-        iterMoy+=tab.algorythmeDePlacageOpti();
+        iterMoy+=tab.algorythmeDePlacage()/10;
         WaitTime(1);
     }
-    std::cout<<"iteration moyen pour "<<nb<<" ligne : "<<iterMoy/100<<std::endl;
+    std::cout<<"iteration moyen pour "<<nb<<" ligne : "<<iterMoy/10<<std::endl;
     return 0;
 }
